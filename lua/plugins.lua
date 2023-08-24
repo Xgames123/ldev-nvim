@@ -85,7 +85,12 @@ return {
       require("Comment").setup(opts)
     end,
   },
-
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    opts =  {}
+  },
   {
     "lukas-reineke/indent-blankline.nvim",
     version = "2.20.7",

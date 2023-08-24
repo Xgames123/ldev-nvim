@@ -1,6 +1,7 @@
 
 local map = {
   general={
+    {"jk", "<Esc>", mode={"v", "i", "n"}, desc="Escape"},
     i = {
 	    -- go to  beginning and end
 	    ["<C-a>"] = { "<ESC>^i", "Beginning of line" },
@@ -67,6 +68,7 @@ local map = {
       -- Don't copy the replaced text after pasting in visual mode
       -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
       ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "Dont copy replaced text", opts = { silent = true } },
+      ["jk"] = { "<Esc>" },
     }
   },
   -- tabbufline={
@@ -142,7 +144,12 @@ M.load = function ()
   for _, mapping in pairs(M.map) do
     if mapping ~= nil then
         for mode, mode_values in pairs(mapping) do
-          if type(mode_values) ~= "boolean" then
+          if type(mode) == "number" then
+            local opts = mode_values.opts or {}
+            opts.desc = mode_values.desc
+            print(mode_values.mode[1])
+            vim.keymap.set(mode_values.mode or "n", mode_values[1], mode_values[2], opts)
+          elseif type(mode_values) ~= "boolean" then
             for keybind, mapping_info in pairs(mode_values) do
               local final_opts = mapping_info.opts or {}
 

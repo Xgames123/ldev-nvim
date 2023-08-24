@@ -3,7 +3,7 @@ return {
     "NvChad/nvterm",
     keys = {
       {
-        "<A-f>",
+        "<A-i>",
         function()
           require("nvterm.terminal").toggle "float"
         end,
