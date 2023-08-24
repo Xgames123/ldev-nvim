@@ -1,7 +1,8 @@
 
 local map = {
   general={
-    {"jk", "<Esc>", mode={"v", "i", "n"}, desc="Escape"},
+    {"jk", "<Esc>", mode={"v", "i",}, desc="Escape"},
+    {"<C-p>", "\"+p", mode="n", desc="Paste from system clipboard"},
     i = {
 	    -- go to  beginning and end
 	    ["<C-a>"] = { "<ESC>^i", "Beginning of line" },
@@ -34,7 +35,8 @@ local map = {
       ["<C-j>"] = { "<C-w>j", "Window down" },
       ["<C-k>"] = { "<C-w>k", "Window up" },
       -- save
-      ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
+      ["<C-s>"] = { "<cmd> split <CR>", "Split window" },
+      ["<C-sv>"] = { "<cmd> vs <CR>", "Split window vertically" },
       -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
       -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
       -- empty mode is same as using <cmd> :map
@@ -147,7 +149,6 @@ M.load = function ()
           if type(mode) == "number" then
             local opts = mode_values.opts or {}
             opts.desc = mode_values.desc
-            print(mode_values.mode[1])
             vim.keymap.set(mode_values.mode or "n", mode_values[1], mode_values[2], opts)
           elseif type(mode_values) ~= "boolean" then
             for keybind, mapping_info in pairs(mode_values) do
