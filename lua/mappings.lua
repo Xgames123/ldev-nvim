@@ -1,8 +1,9 @@
 
 local map = {
   general={
-    {"jk", "<Esc>", mode={"v", "i",}, desc="Escape"},
+    {"jk", "<Esc>", mode={"v", "i", "c"}, desc="Escape"},
     {"<C-p>", "\"+p", mode="n", desc="Paste from system clipboard"},
+    {"<C-y>", "\"+y", mode="n", desc="Yank from system clipboard"},
     i = {
 	    -- go to  beginning and end
 	    ["<C-a>"] = { "<ESC>^i", "Beginning of line" },
@@ -155,7 +156,6 @@ M.load = function ()
               local final_opts = mapping_info.opts or {}
 
               final_opts.desc = mapping_info[2]
-
               vim.keymap.set(mode, keybind, mapping_info[1], final_opts)
             end
           end

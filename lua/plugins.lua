@@ -68,10 +68,11 @@ return {
       { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
       { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
       {
-        "<leader>/", 
+        "<leader>/",
         function()
           require("Comment.api").toggle.linewise.current()
         end,
+        mode ={"n", "v"},
         desc="Toggle comment",
       },
       {
