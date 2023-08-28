@@ -3,7 +3,7 @@ local map = {
   general={
     {"jk", "<Esc>", mode={"v", "i", "c"}, desc="Escape"},
     {"<C-p>", "\"+p", mode="n", desc="Paste from system clipboard"},
-    {"<C-y>", "\"+y", mode="n", desc="Yank from system clipboard"},
+    {"<C-y>", "\"+y", mode={"n", "v"}, desc="Yank from system clipboard"},
     i = {
 	    -- go to  beginning and end
 	    ["<C-a>"] = { "<ESC>^i", "Beginning of line" },
