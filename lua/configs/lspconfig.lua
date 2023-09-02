@@ -56,7 +56,6 @@ local servers = {
 local on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
   client.server_capabilities.documentRangeFormattingProvider = false
-  require("lsp-inlayHints").on_attach(client, bufnr)
   require("mappings").load("lspconfig", {buffer = bufnr})
 
   -- if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then
@@ -101,7 +100,7 @@ end
 local _augroups = {}
 local get_augroup = function(client)
   if not _augroups[client.id] then
-    local group_name = 'kickstart-lsp-format-' .. client.name
+    local group_name = 'lsp-format-' .. client.name
     local id = vim.api.nvim_create_augroup(group_name, { clear = true })
     _augroups[client.id] = id
   end
@@ -113,7 +112,7 @@ end
 --
 -- See `:help LspAttach` for more information about this autocmd event.
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('lsp-attach-formatting', { clear = true }),
+  group = vim.api.nvim_create_augroup('LspAttach_formatting', { clear = true }),
   -- This is where we attach the autoformatting for reasonable clients
   callback = function(args)
     local client_id = args.data.client_id
@@ -126,9 +125,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       group = get_augroup(client),
       buffer = bufnr,
       callback = function()
-        if not format_is_enabled then
-          return
-        end
 
         vim.lsp.buf.format {
           async = false,
@@ -138,5 +134,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
         }
       end,
     })
+  end,
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {clear=true}),
+  callback = function(args)
+    if not (args.data and args.data.client_id) then
+      return
+    end
+
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    require("lsp-inlayhints").on_attach(client, bufnr)
   end,
 })

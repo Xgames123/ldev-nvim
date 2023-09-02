@@ -4,16 +4,16 @@ return {
     "neovim/nvim-lspconfig",
     keys = {
       {
-        "<leader>e", 
+        "<leader>e",
         function ()
           vim.diagnostic.open_float(0, {scope="line"})
         end,
         desc="LSP Diagnostics for this line"
       },
       {
-        "<leader>ra", 
+        "<leader>r",
         function()
-          require("nvchad.renamer").open()
+          require("renamer").rename()
         end,
         desc="LSP rename",
       },
@@ -67,7 +67,17 @@ return {
     dependencies={
       {
         "lvimuser/lsp-inlayhints.nvim",
-        event="LspAttach",
+        branch="main",
+        opts={
+
+        }
+      },
+      {
+        "filipdutescu/renamer.nvim",
+        branch="master",
+        opts = {
+
+        },
       },
     }
   },

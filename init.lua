@@ -35,6 +35,8 @@ opt.undofile = true
 
 opt.whichwrap:append "<>[]hl"
 
+opt.list=true
+
 
 require("configs.lazy")
 require("mappings").load()

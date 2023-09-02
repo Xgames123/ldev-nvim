@@ -19,6 +19,45 @@ return {
   --   end
   -- },
   {
+    "lukas-reineke/indent-blankline.nvim",
+    lazy=false,
+    opts = {
+      space_char_blankline = " ",
+      show_current_context = true,
+      show_current_context_start = true,
+    }
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    lazy =false,
+    opts={
+      options={
+        theme="ayu_mirage",
+        globalstatus=true,
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
+      },
+      sections={
+        lualine_x = {
+          {
+            "encoding",
+            fmt=function (str)
+              return string.upper(str)
+            end
+          },
+          {
+            'fileformat',
+            symbols = {
+              unix = 'LF ', -- e712
+              dos = 'CRLF ',  -- e70f
+              mac = 'CR ',  -- e711
+            }
+          },
+        }
+      },
+    }
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
