@@ -35,7 +35,7 @@ local map = {
       ["<C-l>"] = { "<C-w>l", "Window right" },
       ["<C-j>"] = { "<C-w>j", "Window down" },
       ["<C-k>"] = { "<C-w>k", "Window up" },
-      -- save
+      -- split
       ["<C-s>"] = { "<cmd> split <CR>", "Split window" },
       ["<C-sv>"] = { "<cmd> vs <CR>", "Split window vertically" },
       -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>

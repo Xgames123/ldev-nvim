@@ -3,7 +3,8 @@ return {
     "nvim-telescope/telescope.nvim",
     keys = {
       {"<leader>ff", "<cmd> Telescope find_files <CR>",desc= "Find files"},
-      {"<leader>fb", "<cmd> Telescope buffers <CR>",desc= "Find buffers"}
+      {"<leader>fb", "<cmd> Telescope buffers <CR>",desc= "Find buffers"},
+      {"<leader>fs", "<cmd> Telescope lsp_workspace_symbols <CR>",desc= "Find symbols"}
     },
     opts = function() return {
       defaults = {

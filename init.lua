@@ -37,6 +37,13 @@ opt.whichwrap:append "<>[]hl"
 
 opt.list=true
 
+vim.api.nvim_create_user_command('Config',function(data)
+  vim.cmd("execute 'cd' stdpath(\"config\")")
+  local args = data.args
+  if args == "pull" then
+    vim.cmd("!git pull")
+  end
+end,{nargs="*"})
 
 require("configs.lazy")
 require("mappings").load()
