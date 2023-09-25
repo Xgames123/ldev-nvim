@@ -1,5 +1,15 @@
 return {
   {
+    "Apeiros-46B/qalc.nvim",
+    cmd = "Qalc",
+  },
+  {
+    "NStefan002/speedtyper.nvim",
+    cmd = "Speedtyper",
+    opts = {
+    }
+  },
+  {
     lazy = false,
     "sainnhe/everforest",
     config = function()
