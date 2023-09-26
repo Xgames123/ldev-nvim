@@ -3,6 +3,8 @@ local map = {
   general={
     {"jk", "<Esc>", mode={"v", "i", "c"}, desc="Escape"},
     {"<C-p>", "\"+p", mode="n", desc="Paste from system clipboard"},
+    {"<M-p>", ":pu<CR>", mode="n", desc="Put on content of [x] below the cursor"},
+    {"<C-M-p>", "\"+:pu<CR>", mode="n", desc="Put on content of the system clipboard below the cursor"},
     {"<C-y>", "\"+y", mode={"n", "v"}, desc="Yank from system clipboard"},
     i = {
      -- go to  beginning and end
