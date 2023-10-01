@@ -1,5 +1,9 @@
 return {
   {
+    "ap/vim-css-color",
+     event="VeryLazy",
+  },
+  {
     "Apeiros-46B/qalc.nvim",
     cmd = "Qalc",
   },
@@ -11,17 +15,17 @@ return {
   },
   {
     lazy = false,
-    "sainnhe/everforest",
-    config = function()
-      vim.g.everforest_background="hard"
-      vim.cmd[[
-      set background=dark
-      colorscheme everforest
-      ]]
-      require("highlights")
+    "RRethy/nvim-base16",
+    opts={
+      base00 = '#32302f', base01 = '#3c3836', base02 = '#5a524c', base03 = '#7c6f64',
+      base04 = '#bdae93', base05 = '#ddc7a1', base06 = '#ebdbb2', base07 = '#fbf1c7',
+      base08 = '#ea6962', base09 = '#e78a4e', base0A = '#d8a657', base0B = '#a9b665',
+      base0C = '#89b482', base0D = '#7daea3', base0E = '#d3869b', base0F = '#bd6f3e'
+    },
+    config=function(opts)
+     require("base16-colorscheme").setup()
     end
   },
-  -- {
   --   "jose-elias-alarez/null-ls.nvim",
   --   ft="go",
   --   opts = function ()
@@ -42,7 +46,7 @@ return {
     lazy =false,
     opts={
       options={
-        theme="ayu_mirage",
+        theme="gruvbox-material",
         globalstatus=true,
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
