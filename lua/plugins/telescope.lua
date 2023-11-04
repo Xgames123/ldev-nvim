@@ -4,7 +4,8 @@ return {
     keys = {
       {"<leader>ff", "<cmd> Telescope find_files <CR>",desc= "Find files"},
       {"<leader>fb", "<cmd> Telescope buffers <CR>",desc= "Find buffers"},
-      {"<leader>fs", "<cmd> Telescope lsp_workspace_symbols <CR>",desc= "Find symbols"}
+      {"<leader>fs", "<cmd> Telescope lsp_workspace_symbols <CR>",desc= "Find symbols"},
+      {"<leader>fd", "<cmd> Telescope diagnostics <CR>",desc= "Find diagnostics"}
     },
     opts = function() return {
       defaults = {

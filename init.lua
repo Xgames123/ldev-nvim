@@ -37,6 +37,11 @@ opt.whichwrap:append "<>[]hl"
 
 opt.list=true
 
+-- border
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
+
 vim.api.nvim_create_user_command('Config',function(data)
   vim.cmd("execute 'cd' stdpath(\"config\")")
   local args = data.args
