@@ -5,7 +5,7 @@ local map = {
     {KEY_ESCAPE, "<Esc>", mode={"v", "i", "c"}, desc="Escape"},
     {"p", ":pu<CR>", mode="n", desc="Put on content of [x] below the cursor"},
     {"<M-p>", "p", mode="n", desc="Put on content of [x] below the cursor"},
-    {"<C-p>", "\"+:pu<CR>", mode="n", desc="Put on content of the system clipboard below the cursor"},
+    {"<C-p>", ":pu +<CR>", mode="n", desc="Put on content of the system clipboard below the cursor"},
     {"<C-M-p>", "\"+p", mode="n", desc="Paste from system clipboard"},
     {"<C-y>", "\"+y", mode={"n", "v"}, desc="Yank to system clipboard"},
     i = {

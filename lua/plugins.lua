@@ -1,7 +1,27 @@
 return {
   {
+    "NeogitOrg/neogit",
+    cmd="Neogit",
+    opts={},
+    keys={
+      {
+        "<leader>gc",
+        function()
+          require("neogit").open({ "commit" })
+        end,
+        desc="Git commit",
+      },{
+        "<leader>gs",
+        function()
+          require("neogit").open()
+        end,
+        desc="Git status",
+      }
+    },
+  },
+  {
     "ap/vim-css-color",
-     event="VeryLazy",
+    event="VeryLazy",
   },
   {
     "Apeiros-46B/qalc.nvim",
