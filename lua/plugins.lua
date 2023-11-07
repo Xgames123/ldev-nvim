@@ -2,7 +2,14 @@ return {
   {
     "NeogitOrg/neogit",
     cmd="Neogit",
-    opts={},
+    opts={
+      disable_hints=true,
+      mappings={
+        popup={
+          ["l"]=false,
+        }
+      }
+    },
     keys={
       {
         "<leader>gc",
