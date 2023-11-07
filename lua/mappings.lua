@@ -1,7 +1,8 @@
+local KEY_ESCAPE="mh"
 
 local map = {
   general={
-    {"m", "<Esc>", mode={"v", "i", "c"}, desc="Escape"},
+    {KEY_ESCAPE, "<Esc>", mode={"v", "i", "c"}, desc="Escape"},
     {"p", ":pu<CR>", mode="n", desc="Put on content of [x] below the cursor"},
     {"<M-p>", "p", mode="n", desc="Put on content of [x] below the cursor"},
     {"<C-p>", "\"+:pu<CR>", mode="n", desc="Put on content of the system clipboard below the cursor"},
@@ -32,7 +33,7 @@ local map = {
         "]M",
         "Go to method end"
       },
-      ["m"] = { ":noh <CR>", "Clear highlights" },
+      [KEY_ESCAPE] = { ":noh <CR>", "Clear highlights" },
       -- switch between windows
       ["<C-h>"] = { "<C-w>h", "Window left" },
       ["<C-l>"] = { "<C-w>l", "Window right" },
@@ -74,7 +75,7 @@ local map = {
       -- Don't copy the replaced text after pasting in visual mode
       -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
       ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "Dont copy replaced text", opts = { silent = true } },
-      ["m"] = { "<Esc>" },
+      [KEY_ESCAPE] = { "<Esc>" },
     }
   },
   -- tabbufline={
