@@ -23,7 +23,21 @@ return {
           require("neogit").open()
         end,
         desc="Git status",
+      },{
+        "<leader>gpu",
+        function ()
+          require("neogit").open({"push"})
+        end,
+        desc="Git push"
+      },
+      {
+        "<leader>gpl",
+        function ()
+          require("neogit").open({"pull"})
+        end,
+        desc="Git pull"
       }
+
     },
   },
   {
