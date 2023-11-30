@@ -12,39 +12,12 @@ return {
     },
     keys={
       {
-        "<leader>gc",
-        function()
-          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.api.nvim_buf_get_option(buf, 'modified') then
-              error("UNSAVED CHANGES")
-              return
-            end
-          end
-          vim.cmd[[!git add .]]
-          require("neogit").open({ "commit" })
-        end,
-        desc="Git commit",
-      },{
-        "<leader>gs",
+        "<leader>g",
         function()
           require("neogit").open()
         end,
-        desc="Git status",
-      },{
-        "<leader>gpu",
-        function ()
-          require("neogit").open({"push"})
-        end,
-        desc="Git push"
-      },
-      {
-        "<leader>gpl",
-        function ()
-          require("neogit").open({"pull"})
-        end,
-        desc="Git pull"
+        desc="NeoGit",
       }
-
     },
   },
   {

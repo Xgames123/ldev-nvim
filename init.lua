@@ -11,6 +11,7 @@ vim.opt.spell = true
 vim.opt.spellcapcheck=""
 vim.opt.spelloptions = {"camel"}
 vim.opt.spelllang = { "en_us", "programming" }
+vim.wo.relativenumber = true
 
 --numbers
 opt.number = true
