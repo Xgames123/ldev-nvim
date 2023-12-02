@@ -2,7 +2,8 @@ return {
   "nvim-tree/nvim-tree.lua",
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
   keys = {
-      {"<C-n>", "<cmd> NvimTreeToggle <CR> ", desc="Toggle nvimtree"}
+      {"<C-n>", "<cmd> NvimTreeToggle <CR> ", desc="Toggle nvimtree"},
+      {'<C-]>', "<cmd> lua require('nvim-tree.api').tree.change_root_to_node() <CR>", desc="Change root to selected node"},
   },
   opts = {
     filters = {
