@@ -1,5 +1,9 @@
 return {
   {
+    ft="markdown",
+    "jghauser/follow-md-links.nvim",
+  },
+  {
     "NeogitOrg/neogit",
     cmd="Neogit",
     opts={
@@ -97,7 +101,7 @@ return {
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = {
-      ensure_installed = { "lua" },
+      ensure_installed = { "lua", "markdown", "markdown_inline" },
 
       highlight = {
         enable = true,
