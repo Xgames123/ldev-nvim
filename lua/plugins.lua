@@ -30,7 +30,6 @@ return {
               return
             end
           end
-          vim.cmd[[!git add .]]
           require("neogit").open()
         end,
         desc="NeoGit",
