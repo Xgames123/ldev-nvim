@@ -1,5 +1,40 @@
 return {
   {
+    'Vonr/align.nvim',
+    branch = "v2",
+    keys={
+      {
+        "aa",
+        mode={"v", "n"},
+        function ()
+          require('align').align_to_char({
+            length = 1,
+          })
+        end
+      },
+      {
+        'aw',
+        mode={"v", "n"},
+        function()
+          require('align').align_to_string({
+            preview = true,
+            regex = false,
+          })
+        end
+      },
+      {
+        'ar',
+        mode={"v", "n"},
+        function()
+          require('align').align_to_string({
+            preview = true,
+            regex = true,
+          })
+        end
+      }
+    },
+  },
+  {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
