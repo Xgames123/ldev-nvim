@@ -1,37 +1,9 @@
 return {
   {
-    'Vonr/align.nvim',
-    branch = "v2",
+    "junegunn/vim-easy-align",
+    cmd = {"EasyAlign"},
     keys={
-      {
-        "aa",
-        mode={"v", "n"},
-        function ()
-          require('align').align_to_char({
-            length = 1,
-          })
-        end
-      },
-      {
-        'aw',
-        mode={"v", "n"},
-        function()
-          require('align').align_to_string({
-            preview = true,
-            regex = false,
-          })
-        end
-      },
-      {
-        'ar',
-        mode={"v", "n"},
-        function()
-          require('align').align_to_string({
-            preview = true,
-            regex = true,
-          })
-        end
-      }
+      {"ga", mode={"n", "v"}, cmd="EasyAlign"}
     },
   },
   {
