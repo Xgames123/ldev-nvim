@@ -59,5 +59,6 @@ local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
 
 
-vim.cmd.colorscheme 'base16-gruvbox-material-dark-soft'
+--vim.cmd.colorscheme 'base16-gruvbox-material-dark-soft'
+vim.cmd.colorscheme 'base16-gruvbox-material-dark-hard'
 require("highlights")
