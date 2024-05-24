@@ -8,6 +8,8 @@ local map = {
     {"<C-p>", ":pu +<CR>", mode="n", desc="Put on content of the system clipboard below the cursor"},
     {"<C-M-p>", "\"+p", mode="n", desc="Paste from system clipboard"},
     {"<C-y>", "\"+y", mode={"n", "v"}, desc="Yank to system clipboard"},
+     -- cmd mode
+    {"<C-p>", "<C-r>+", mode="c", desc="paste the content of the system clipboard"},
 
     i = {
      -- go to  beginning and end
