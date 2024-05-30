@@ -41,8 +41,8 @@ return {
   },
   {
     'mrcjkb/rustaceanvim',
-    version = '^3', -- Recommended
-    ft = { 'rust' },
+    version = '^4', -- Recommended
+    lazy=false,
     keys={
       {
         "<leader>rc",
@@ -110,6 +110,9 @@ return {
         },
       }
 
-    end
+    end,
+    dependencies={
+      "neovim/nvim-lspconfig"
+    }
   }
 }

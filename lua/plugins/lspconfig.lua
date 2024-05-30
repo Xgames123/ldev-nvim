@@ -1,12 +1,11 @@
 return {
   {
-    lazy=false,
     "neovim/nvim-lspconfig",
     keys = {
       {
         "<leader>e",
         function ()
-          vim.diagnostic.open_float(0, {scope="line"})
+          vim.diagnostic.open_float({scope="line"})
         end,
         desc="LSP Diagnostics for this line"
       },
@@ -61,16 +60,8 @@ return {
         desc="LSP formatting",
       }
     },
-    config = function()
-      require "configs.lspconfig"
-    end,
     dependencies={
       "mrcjkb/rustaceanvim",
-      {
-        "lvimuser/lsp-inlayhints.nvim",
-        branch="main",
-        opts={}
-      },
       {
         "filipdutescu/renamer.nvim",
         branch="master",

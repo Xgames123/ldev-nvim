@@ -38,6 +38,8 @@ opt.whichwrap:append "<>[]hl"
 
 opt.list=true
 
+vim.lsp.inlay_hint.enable(true);
+
 -- border
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
@@ -55,7 +57,7 @@ require("configs.lazy")
 require("mappings").load()
 
 -- add binaries installed by mason.nvim to path
-local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+local is_windows = jit.os == "Windows"
 vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
 
 
