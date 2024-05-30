@@ -30,6 +30,8 @@ return {
     "NeogitOrg/neogit",
     cmd="Neogit",
     opts={
+
+      kind="replace",
       disable_hints=true,
       mappings={
         popup={
@@ -42,8 +44,8 @@ return {
         "<leader>g",
         function()
           for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.api.nvim_buf_get_option(buf, 'modified') then
-              error("UNSAVED CHANGES")
+            if vim.api.nvim_get_option_value('modified', {buf=buf}) then
+              error("UNSAVED CHANGES in "+vim.api.nvim_buf_get_name(buf))
               return
             end
           end
@@ -52,6 +54,11 @@ return {
         desc="NeoGit",
       }
     },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    },
+    config=true,
   },
   {
     "ap/vim-css-color",

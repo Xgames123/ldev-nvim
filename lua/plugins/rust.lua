@@ -1,4 +1,4 @@
-local plugins = {
+return {
   {
     'saecki/crates.nvim',
     ft = {"toml"},
@@ -80,7 +80,7 @@ local plugins = {
         tools = {
           hover_actions={
             replace_builtin_hover=true,
-            border="single"
+            border={ "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
           }
         },
         -- LSP configuration
@@ -112,16 +112,4 @@ local plugins = {
 
     end
   }
-  -- {
-  --   "simrat39/rust-tools.nvim",
-  --   ft = "rust",
-  --   dependencies = "neovim/nvim-lspconfig",
-  --   opts = function ()
-  --     return require "custom.configs.rust-tools"
-  --   end,
-  --   config = function(_, opts)
-  --     require('rust-tools').setup(opts)
-  --   end
-  -- },
 }
-return plugins

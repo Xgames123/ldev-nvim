@@ -65,22 +65,16 @@ return {
       require "configs.lspconfig"
     end,
     dependencies={
-      {
-        "mrcjkb/rustaceanvim",
-      },
+      "mrcjkb/rustaceanvim",
       {
         "lvimuser/lsp-inlayhints.nvim",
         branch="main",
-        opts={
-
-        }
+        opts={}
       },
       {
         "filipdutescu/renamer.nvim",
         branch="master",
-        opts = {
-
-        },
+        opts = {},
       },
     }
   },
