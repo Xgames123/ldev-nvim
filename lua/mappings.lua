@@ -1,70 +1,70 @@
-local KEY_ESCAPE="mh"
+local KEY_ESCAPE = "mh"
 
-local map = {
-  general={
-    {KEY_ESCAPE, "<Esc>", mode={"v", "i", "c"}, desc="Escape"},
-    {"p", ":pu<CR>", mode="n", desc="Put on content of [x] below the cursor"},
-    {"<M-p>", "p", mode="n", desc="Put on content of [x] below the cursor"},
-    {"<C-p>", ":pu +<CR>", mode="n", desc="Put on content of the system clipboard below the cursor"},
-    {"<C-M-p>", "\"+p", mode="n", desc="Paste from system clipboard"},
-    {"<C-y>", "\"+y", mode={"n", "v"}, desc="Yank to system clipboard"},
-     -- cmd mode
-    {"<C-p>", "<C-r>+", mode="c", desc="paste the content of the system clipboard"},
+local M = { }
 
-    i = {
-     -- go to  beginning and end
-	    ["<C-a>"] = { "<ESC>^i", "Beginning of line" },
-	    ["<C-e>"] = { "<End>", "End of line" },
+M.global_map = {
+  general ={
+    { KEY_ESCAPE, "<Esc>", mode = { "v", "i", "c" } },
 
-	    -- navigate within insert mode
-	    ["<C-h>"] = { "<Left>", "Move left" },
-	    ["<C-l>"] = { "<Right>", "Move right" },
-	    ["<C-j>"] = { "<Down>", "Move down" },
-	    ["<C-k>"] = { "<Up>", "Move up" },
-    },
-    n = {
-      ["é"] = {
-        "^",
-        "Go to start of line"
-      },
-      ["ù"] = {"%", "Go to next matching bracket"},
-      ["gm"] = {
-        "]m",
-        "Go to method start"
-      },
-      ["gM"] = {
-        "]M",
-        "Go to method end"
-      },
-      [KEY_ESCAPE] = { ":noh <CR>", "Clear highlights" },
-      -- switch between windows
-      ["<C-h>"] = { "<C-w>h", "Window left" },
-      ["<C-l>"] = { "<C-w>l", "Window right" },
-      ["<C-j>"] = { "<C-w>j", "Window down" },
-      ["<C-k>"] = { "<C-w>k", "Window up" },
-      -- split
-      ["<C-s>"] = { "<cmd> split <CR>", "Split window" },
-      ["<C-sv>"] = { "<cmd> vs <CR>", "Split window vertically" },
-      -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
-      -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
-      -- empty mode is same as using <cmd> :map
-      -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
-      ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
-      ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
-      ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
-      ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
+    { "<leader>rr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>", desc = "replace highlighted word" },
+-- copy paste { "<leader>p", "\"_dP",   desc = "Replace selected",                          mode  = "v"           },
+    { "<M-p>",     ":pu<CR>", desc = "Paste below cursor",                        mode  = "n"           },
+    -- sys clipboard
+    { "<leader>y", "\"+",     desc = "System clipboard",                          mode  = { "n", "v" }  },
+    { "<C-p>",     "\'+yp",   desc = "Paste the content of the system clipboard", mode  = { "n", "v" }  },
+    { "<C-y>",     "\"+y",    desc = "Yank to system clipboard",                  mode  = { "n", "v" }  },
+    { "<C-p>",     "<C-r>+",  desc = "Paste the content of the system clipboard", mode  = "c"           },
 
-      -- new buffer
-      ["<leader>b"] = { "<cmd> enew <CR>", "New buffer" },
-      ["<leader>x"] = { "<cmd> :bdelete  <CR>", "Delete buffer" },
+    -- move block
+    { "J",     ":m '>+1<CR>gv=gv", mode= "v" },
+    { "K",     ":m '<-2<CR>gv=gv", mode= "v" },
 
-    },
+    { "<C-d>", "<C-d>zz" },
+    { "<C-u>", "<C-u>zz" },
+    { "n",     "nzzzv"   },
+    { "N",     "Nzzzv"   },
+
+    -- go to beginning and end
+    { "<C-a>", "<ESC>^i", desc = "Beginning of line", mode = "i" },
+    { "<C-e>", "<End>", desc = "End of line", mode = { "n", "i" } },
+
+    -- navigate within insert mode
+    { "<C-h>", "<Left>", desc = "Move left", mode = "i" },
+    { "<C-l>", "<Right>", desc = "Move right", mode = "i" },
+    { "<C-j>", "<Down>", desc = "Move down", mode = "i" },
+    { "<C-k>", "<Up>", desc = "Move up", mode = "i" },
+
+    -- azerty remaps
+    { "é", "^", desc = "Go to start of line", mode = { "v", "n" } },
+    { "ù", "%", desc = "Go to matching brace", mode = { "n", "v" } },
+
+    { "gm", "]m", desc = "Go to method start", mode = "n" },
+
+    {"gM", "]M", desc = "Go to method end", mode = "n" },
+    {"<Esc>", ":noh <CR>", desc = "Clear highlights", mode = "n" },
+
+    -- switch between windows
+    {"<C-h>", "<C-w>h", desc = "Window left", mode = "n" },
+    {"<C-l>", "<C-w>l", desc = "Window right", mode = "n" },
+    {"<C-j>", "<C-w>j", desc = "Window down", mode = "n" },
+    {"<C-k>", "<C-w>k", desc = "Window up", mode = "n" },
+    -- split
+    {"<C-s>", "<cmd> split <CR>", desc = "Split window", mode = "n" },
+    {"<C-sv>", "<cmd> vs <CR>", desc = "Split window vertically", mode = "n" },
+    -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
+    -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
+    -- empty mode is same as using <cmd> :map
+    -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
+    {"j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', desc = "Move down", opts = { expr = true }, mode = "n" },
+    {"k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', desc = "Move up", opts = { expr = true }, mode = "n" },
+    {"<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', desc = "Move up", opts = { expr = true }, mode = "n" },
+    {"<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', desc = "Move down", opts = { expr = true } , mode = "n" },
+
+    -- new buffer
+    {"<leader>b", "<cmd> enew <CR>", desc = "New buffer", mode = "n" },
+    {"<leader>x", "<cmd> :bdelete <CR>", desc = "Delete buffer", mode = "n" },
+
     v = {
-      ["ù"] = {"%"},
-      ["é"] = {
-        "^",
-        "Go to start of line"
-      },
 
       ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
       ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
@@ -75,41 +75,10 @@ local map = {
     x = {
       ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
       ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
-      -- Don't copy the replaced text after pasting in visual mode
-      -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
-      ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "Dont copy replaced text", opts = { silent = true } },
-      [KEY_ESCAPE] = { "<Esc>" },
     }
   },
-  -- tabbufline={
-  --    n = {
-  --       -- cycle through buffers
-  --       ["<tab>"] = {
-  --         function()
-  --           require("nvchad.tabufline").tabuflineNext()
-  --         end,
-  --         "Goto next buffer",
-  --       },
-  --
-  --       ["<S-tab>"] = {
-  --         function()
-  --           require("nvchad.tabufline").tabuflinePrev()
-  --         end,
-  --         "Goto prev buffer",
-  --       },
-  --
-  --       -- close buffer + hide terminal buffer
-  --       ["<leader>x"] = {
-  --         function()
-  --           require("nvchad.tabufline").close_buffer()
-  --         end,
-  --         "Close buffer",
-  --       },
-  --    }  
-  --
-  -- },
 
-  spell={
+  spell ={
     n = {
       ["gs"] = {
         "]s",
@@ -134,7 +103,7 @@ local map = {
         "Mark work as misspelled"
       }
     },
-    i={
+    i ={
       ["<C-s>"] = {
         function()
           require("telescope.builtin").spell_suggest()
@@ -143,30 +112,42 @@ local map = {
       }
     }
   },
+  lazy_term ={
+    {
+      "<M-i>",
+      function()
+        toggle_float_term();
+      end,
+      mode = { "n", "t" },
+      desc = "Toggle a floating terminal",
+    }
+
+  }
 
 }
 
 
+M.load = function (maps)
+  for mode, mode_values in pairs(maps) do
+    if type(mode) == "number" then
+      local opts = mode_values.opts or { }
+      opts.desc = mode_values.desc
+      vim.keymap.set(mode_values.mode or "n", mode_values[1], mode_values[2], opts)
+    elseif type(mode_values) ~= "boolean" then
+      for keybind, mapping_info in pairs(mode_values) do
+        local final_opts = mapping_info.opts or { }
 
-local M = {}
-M.map = map
-M.load = function ()
-  for _, mapping in pairs(M.map) do
+        final_opts.desc = mapping_info[2]
+        vim.keymap.set(mode, keybind, mapping_info[1], final_opts)
+      end
+    end
+  end
+end
+
+M.load_global = function ()
+  for _, mapping in pairs(M.global_map) do
     if mapping ~= nil then
-        for mode, mode_values in pairs(mapping) do
-          if type(mode) == "number" then
-            local opts = mode_values.opts or {}
-            opts.desc = mode_values.desc
-            vim.keymap.set(mode_values.mode or "n", mode_values[1], mode_values[2], opts)
-          elseif type(mode_values) ~= "boolean" then
-            for keybind, mapping_info in pairs(mode_values) do
-              local final_opts = mapping_info.opts or {}
-
-              final_opts.desc = mapping_info[2]
-              vim.keymap.set(mode, keybind, mapping_info[1], final_opts)
-            end
-          end
-        end
+      M.load(mapping)
     end
   end
 end

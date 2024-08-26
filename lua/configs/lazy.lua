@@ -6,10 +6,10 @@ local opts = {
       print(plugin.name)
 	    require("configs."..plugin.name)
 	  end,
-    
   },
 
   ui = {
+    border="rounded",
     icons = {
       ft = "",
       lazy = "󰂠 ",

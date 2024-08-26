@@ -2,11 +2,12 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     keys = {
-      {"<leader>fg", "<cmd> Telescope live_grep <CR>",desc="Grep current working directory"},
-      {"<leader>ff", "<cmd> Telescope find_files <CR>",desc= "Find files"},
-      {"<leader>fb", "<cmd> Telescope buffers <CR>",desc= "Find buffers"},
-      {"<leader>fs", "<cmd> Telescope lsp_workspace_symbols <CR>",desc= "Find symbols"},
-      {"<leader>fd", "<cmd> Telescope diagnostics <CR>",desc= "Find diagnostics"}
+      {"<leader>fg", require("telescope.builtin").live_grep, desc="Grep current working directory"},
+      {"<leader>fa", require("telescope.builtin").find_files, desc= "Find all files"},
+      {"<leader>ff", require("telescope.builtin").git_files, desc= "Find git files"},
+      {"<leader>fb", require("telescope.builtin").buffers, desc= "Find buffers"},
+      {"<leader>fs", require("telescope.builtin").lsp_workspace_symbols, desc= "Find symbols"},
+      {"<leader>fd", require("telescope.builtin").diagnostics, desc= "Find diagnostics"}
     },
     opts = function() return {
       defaults = {

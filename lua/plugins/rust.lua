@@ -2,35 +2,46 @@ return {
   {
     'saecki/crates.nvim',
     ft = {"toml"},
-    keys = {
-      {
-        "<leader>cu", 
-        function ()
-          require('crates').upgrade_all_crates()
+    event = { "BufRead Cargo.toml" },
+    opts={
+
+      lsp = {
+        enabled = true,
+        on_attach = function(client, bufnr)
+          require("mappings").load({
+            {
+              "<leader>cu", 
+              function ()
+                require('crates').upgrade_all_crates()
+              end,
+              desc = "Update crates"
+            },
+            {
+              "<leader>cd",
+              function ()
+                require("crates").show_dependencies_popup()
+              end,
+            },
+            {
+              "<leader>cv",
+              function ()
+                require("crates").show_versions_popup()
+              end,
+            }
+
+          })
         end,
-        desc = "Update crates"
+        actions = true,
+        completion = true,
+        hover = true,
       },
-      {
-        "<leader>cd",
-         function ()
-            require("crates").show_dependencies_popup()
-          end,
-      },
-      {
-        "<leader>cv",
-        function ()
-          require("crates").show_versions_popup()
-        end,
-      }
     },
     config = function(_, opts)
-      local crates = require('crates')
-      crates.setup(opts)
-      require('cmp').setup.buffer({
-        sources = { { name = "crates" }}
-      })
-      crates.show()
+      require("crates").setup(opts)
     end,
+    dependencies={
+      "neovim/nvim-lspconfig"
+    }
   },
   {
     "rust-lang/rust.vim",
@@ -43,37 +54,6 @@ return {
     'mrcjkb/rustaceanvim',
     version = '^4', -- Recommended
     lazy=false,
-    keys={
-      {
-        "<leader>rc",
-        function ()
-          vim.cmd.RustLsp('openCargo')
-        end,
-        desc="Rust open Cargo.toml"
-      },
-      {
-        "<leader>rx",
-        function ()
-          vim.cmd.RustLsp('expandMacro')
-        end,
-        desc="Rust expand macros"
-      },
-      {
-        "K",
-        function ()
-          vim.cmd.RustLsp { 'hover', 'actions' }
-        end,
-        desc="Rust hover"
-
-      },
-      {
-        "<leader>j",
-        function ()
-          vim.cmd.RustLsp { 'moveItem',  'down' }
-        end,
-        desc="Rust move item up"
-      }
-    },
     config=function ()
       vim.g.rustaceanvim = {
         -- Plugin configuration
@@ -86,6 +66,37 @@ return {
         -- LSP configuration
         server = {
           on_attach = function(client, bufnr)
+            require("mappings").load({
+              {
+                "<leader>rc",
+                function ()
+                  vim.cmd.RustLsp('openCargo')
+                end,
+                desc="Rust open Cargo.toml"
+              },
+              {
+                "<leader>rx",
+                function ()
+                  vim.cmd.RustLsp('expandMacro')
+                end,
+                desc="Rust expand macros"
+              },
+              {
+                "K",
+                function ()
+                  vim.cmd.RustLsp { 'hover', 'actions' }
+                end,
+                desc="Rust hover"
+
+              },
+              {
+                "<leader>j",
+                function ()
+                  vim.cmd.RustLsp { 'moveItem',  'down' }
+                end,
+                desc="Rust move item up"
+              }
+            })
             -- you can also put keymaps in here
           end,
           settings = {

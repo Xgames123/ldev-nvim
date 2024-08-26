@@ -5,16 +5,17 @@ return {
   {
     "junegunn/vim-easy-align",
     cmd = {"EasyAlign"},
-    keys={
-      {
-        "ga",
-        mode={"n", "v"},
-        desc= "EasyAlign",
-        function()
-          vim.cmd "EasyAlign"
-        end
-      }
-    },
+    lazy=false,
+    -- keys={
+    --   {
+    --     "ga",
+    --     mode={"n", "v"},
+    --     desc= "EasyAlign",
+    --     function()
+    --       vim.cmd "EasyAlign"
+    --     end
+    --   }
+    -- },
   },
   {
     "iamcco/markdown-preview.nvim",
@@ -98,7 +99,7 @@ return {
     lazy =false,
     opts={
       options={
-        theme="gruvbox-material",
+        theme="auto",
         component_separators = '|',
         section_separators = { left = '', right = '' },
         globalstatus=true,
@@ -129,7 +130,7 @@ return {
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = {
-      ensure_installed = { "lua", "markdown", "markdown_inline" },
+      ensure_installed = { "help", "lua", "markdown", "markdown_inline" },
 
       highlight = {
         enable = true,
@@ -161,7 +162,7 @@ return {
       }
     },
     opts = {
-      triggers={"<leader>", '"', "'", "`", "c", "v", "g",}
+      triggers={"<leader>", '"', "'", "`", "c", "v", "g", "y",}
     }
   },
   {

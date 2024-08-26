@@ -12,7 +12,7 @@ return {
       {
         "<leader>rr",
         function()
-          require("renamer").rename()
+          vim.lsp.buf.rename()
         end,
         desc="LSP rename",
       },
@@ -23,14 +23,13 @@ return {
         end,
         desc="LSP code action",
       },
-      --[[ {
+      {
         "K",
         function()
           vim.lsp.buf.hover()
-          require("crates").show_popup()
         end,
         desc="LSP hover",
-      }, ]]
+      },
       {
         "gr",
         function ()
@@ -61,7 +60,6 @@ return {
       }
     },
     dependencies={
-      "mrcjkb/rustaceanvim",
       {
         "filipdutescu/renamer.nvim",
         branch="master",
