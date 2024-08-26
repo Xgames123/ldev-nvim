@@ -7,11 +7,12 @@ M.global_map = {
     { KEY_ESCAPE, "<Esc>", mode = { "v", "i", "c" } },
 
     { "<leader>rr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>", desc = "replace highlighted word" },
--- copy paste { "<leader>p", "\"_dP",   desc = "Replace selected",                          mode  = "v"           },
+    -- copy paste
+    { "<leader>p", "\"_dP",   desc = "Replace selected",                          mode  = "v"           },
     { "<M-p>",     ":pu<CR>", desc = "Paste below cursor",                        mode  = "n"           },
     -- sys clipboard
     { "<leader>y", "\"+",     desc = "System clipboard",                          mode  = { "n", "v" }  },
-    { "<C-p>",     "\'+yp",   desc = "Paste the content of the system clipboard", mode  = { "n", "v" }  },
+    { "<C-p>",     "\"+yp",   desc = "Paste the content of the system clipboard", mode  = { "n", "v" }  },
     { "<C-y>",     "\"+y",    desc = "Yank to system clipboard",                  mode  = { "n", "v" }  },
     { "<C-p>",     "<C-r>+",  desc = "Paste the content of the system clipboard", mode  = "c"           },
 
