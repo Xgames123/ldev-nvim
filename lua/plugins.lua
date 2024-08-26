@@ -162,7 +162,6 @@ return {
       }
     },
     opts = {
-      triggers={"<leader>", '"', "'", "`", "c", "v", "g", "y",}
     }
   },
   {

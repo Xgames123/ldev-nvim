@@ -12,7 +12,7 @@ M.global_map = {
     { "<M-p>",     ":pu<CR>", desc = "Paste below cursor",                        mode  = "n"           },
     -- sys clipboard
     { "<leader>y", "\"+",     desc = "System clipboard",                          mode  = { "n", "v" }  },
-    { "<C-p>",     "\"+yp",   desc = "Paste the content of the system clipboard", mode  = { "n", "v" }  },
+    { "<C-p>",     "\"+p",    desc = "Paste the content of the system clipboard", mode  = { "n", "v" }  },
     { "<C-y>",     "\"+y",    desc = "Yank to system clipboard",                  mode  = { "n", "v" }  },
     { "<C-p>",     "<C-r>+",  desc = "Paste the content of the system clipboard", mode  = "c"           },
 
