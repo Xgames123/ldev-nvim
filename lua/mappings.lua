@@ -65,18 +65,7 @@ M.global_map = {
     {"<leader>b", "<cmd> enew <CR>", desc = "New buffer", mode = "n" },
     {"<leader>x", "<cmd> :bdelete <CR>", desc = "Delete buffer", mode = "n" },
 
-    v = {
-
-      ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
-      ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
-    },
-    t = {
-      ["<C-x>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "Escape terminal mode" },
-    },
-    x = {
-      ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
-      ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
-    }
+    { "<C-x>", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), desc = "Escape terminal mode" },
   },
 
   spell ={
@@ -113,12 +102,10 @@ M.global_map = {
       }
     }
   },
-  lazy_term ={
+  terminal ={
     {
       "<M-i>",
-      function()
-        toggle_float_term();
-      end,
+      "<cmd>ToggleTerm direction=float<CR>",
       mode = { "n", "t" },
       desc = "Toggle a floating terminal",
     }

@@ -1,4 +1,12 @@
 return {
+  {
+    "akinsho/toggleterm.nvim",
+    version="*",
+    cmd={ "ToggleTerm", "ToggleTermToggleAll", "TermExec" },
+    config = function(_, opts)
+      require("toggleterm").setup()
+    end
+  },
   -- {
   --   "edluffy/hologram.nvim",
   -- },
@@ -143,26 +151,25 @@ return {
   {
     "folke/which-key.nvim",
     event="VeryLazy",
-    keys = {
-      {
-        "<leader>wK",
-        function()
-          vim.cmd "WhichKey"
-        end,
-        desc="Which-key all keymaps",
-
-      },
-      {
-        "<leader>wk",
-        function()
-          local input = vim.fn.input "WhichKey: "
-          vim.cmd("WhichKey " .. input)
-        end,
-        desc="Which-key query lookup",
-      }
-    },
-    opts = {
-    }
+    -- keys = {
+    --   {
+    --     "<leader>wK",
+    --     function()
+    --       vim.cmd "WhichKey"
+    --     end,
+    --     desc="Which-key all keymaps",
+    --
+    --   },
+    --   {
+    --     "<leader>wk",
+    --     function()
+    --       local input = vim.fn.input "WhichKey: "
+    --       vim.cmd("WhichKey " .. input)
+    --     end,
+    --     desc="Which-key query lookup",
+    --   }
+    -- },
+    opts = {}
   },
   {
     "numToStr/Comment.nvim",
@@ -173,20 +180,6 @@ return {
       { "gbc", mode = "n", desc = "Comment toggle current block" },
       { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
       { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
-      {
-        "<leader>/",
-        function()
-          require("Comment.api").toggle.linewise.current()
-        end,
-        mode ={"n", "v"},
-        desc="Toggle comment",
-      },
-      {
-        "<leader>/",
-        "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-        desc="Toggle comment",
-        mode="t"
-      }
     },
     config = function(_, opts)
       require("Comment").setup(opts)

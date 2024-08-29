@@ -61,16 +61,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   command = [[%s/\s\+$//e]],
 })
 
-float_term=nil
-function toggle_float_term()
-  if float_term == nil then
-    float_term = require("lazy.util").float_term()
-  else
-    vim.api.nvim_win_close(float_term.win, true)
-    float_term = nil
-  end
-end
-
 require("configs.lazy")
 require("mappings").load_global()
 
