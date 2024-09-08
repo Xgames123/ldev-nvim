@@ -10,7 +10,7 @@ return {
         on_attach = function(client, bufnr)
           require("mappings").load({
             {
-              "<leader>cu", 
+              "<leader>cu",
               function ()
                 require('crates').upgrade_all_crates()
               end,

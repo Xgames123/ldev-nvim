@@ -6,8 +6,8 @@ vim.o.timeout = true
 vim.o.timeoutlen = 500
 
 vim.opt.spell = true
-vim.opt.spellcapcheck=""
-vim.opt.spelloptions = {"camel"}
+vim.opt.spellcapcheck = ""
+vim.opt.spelloptions = { "camel" }
 vim.opt.spelllang = { "en_us", "programming" }
 
 --numbers
@@ -35,11 +35,11 @@ opt.backup = false
 
 opt.whichwrap:append "<>[]hl"
 
-opt.incsearch=true
-opt.hlsearch=false
-opt.scrolloff=8
+opt.incsearch = true
+opt.hlsearch = false
+opt.scrolloff = 8
 
-opt.list=true
+opt.list = true
 
 vim.lsp.inlay_hint.enable(true);
 
@@ -47,22 +47,27 @@ vim.lsp.inlay_hint.enable(true);
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
 })
+vim.diagnostic.config({
+  float = {
+    border = "single"
+  }
+})
 
-vim.api.nvim_create_user_command('Config',function(data)
+vim.api.nvim_create_user_command('Config', function(data)
   vim.cmd("execute 'cd' stdpath(\"config\")")
   local args = data.args
   if args == "pull" then
     vim.cmd("!git pull")
   end
-end,{nargs="*"})
+end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = { "*" },
   command = [[%s/\s\+$//e]],
 })
 
-require("configs.lazy")
 require("mappings").load_global()
+require("configs.lazy")
 
 -- add binaries installed by mason.nvim to path
 local is_windows = jit.os == "Windows"

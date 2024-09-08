@@ -2,19 +2,19 @@ local lspconfig = require("lspconfig")
 local util = require "lspconfig/util"
 
 local servers = {
-  gopls={
-    cmd = {"gopls"},
-    filetypes={"go", "gomod", "gowork", "gotmpl"},
+  gopls = {
+    cmd = { "gopls" },
+    filetypes = { "go", "gomod", "gowork", "gotmpl" },
     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-    settings={
-      gopls={
+    settings = {
+      gopls = {
         completeUnimported = true,
-        analyses = {nilness = true},
+        analyses = { nilness = true },
       }
     }
   },
   lua_ls = {
-    filetypes={"lua"},
+    filetypes = { "lua" },
     settings = {
       Lua = {
         diagnostics = {
@@ -34,17 +34,7 @@ local servers = {
   },
 }
 
-local on_attach = function(client, bufnr)
-  client.server_capabilities.documentFormattingProvider = false
-  client.server_capabilities.documentRangeFormattingProvider = false
-  require("mappings").load("lspconfig", {buffer = bufnr})
-
-  -- if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then
-  --   client.server_capabilities.semanticTokensProvider = nil
-  -- end
-end
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require("lsp-status").capabilities
 capabilities.textDocument.completion.completionItem = {
   documentationFormat = { "markdown", "plaintext" },
   snippetSupport = true,
@@ -63,23 +53,15 @@ capabilities.textDocument.completion.completionItem = {
   },
 }
 
-for server_name, server_info in pairs(servers) do
-  local info = server_info
-  if info.capabilities == nil then
-    info.capabilities = capabilities
+local function setup_servers()
+  for server_name, server_info in pairs(servers) do
+    local info = server_info
+    if info.capabilities == nil then
+      info.capabilities = capabilities
+    end
+    lspconfig[server_name].setup(info)
   end
-  if info.on_attach == nil then
-    info.on_attach = on_attach
-  end
-  lspconfig[server_name].setup(info)
 end
-
-vim.diagnostic.config({
-  float={
-    border="single"
-  }
-})
-
 
 -- Create an augroup that is used for managing our formatting autocmds.
 --      We need one augroup per client to make sure that multiple clients
@@ -106,13 +88,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local client = vim.lsp.get_client_by_id(client_id)
     local bufnr = args.buf
 
+    require("lsp-status").on_attach(client)
+
     -- Create an autocmd that will run *before* we save the buffer.
     --  Run the formatting command for the LSP that has just attached.
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = get_augroup(client),
       buffer = bufnr,
       callback = function()
-
         vim.lsp.buf.format {
           async = false,
           filter = function(c)
@@ -121,6 +104,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
         }
       end,
     })
+
+    local mappings = require("mappings")
+    mappings.load(mappings.lsp)
   end,
 })
 
+setup_servers()

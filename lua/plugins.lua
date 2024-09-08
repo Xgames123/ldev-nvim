@@ -1,19 +1,35 @@
 return {
   {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      {
+        "nvim-lua/lsp-status.nvim",
+        config = function(_, _)
+          local lsp_status = require("lsp-status")
+          lsp_status.register_progress()
+        end
+      },
+      {
+        "filipdutescu/renamer.nvim",
+        branch = "master",
+        config = function(_, _)
+          require("configs.lspconfig")
+        end
+      },
+    }
+  },
+  {
     "akinsho/toggleterm.nvim",
-    version="*",
-    cmd={ "ToggleTerm", "ToggleTermToggleAll", "TermExec" },
+    version = "*",
+    cmd = { "ToggleTerm", "ToggleTermToggleAll", "TermExec" },
     config = function(_, opts)
       require("toggleterm").setup()
     end
   },
-  -- {
-  --   "edluffy/hologram.nvim",
-  -- },
   {
     "junegunn/vim-easy-align",
-    cmd = {"EasyAlign"},
-    lazy=false,
+    cmd = { "EasyAlign" },
+    lazy = false,
     -- keys={
     --   {
     --     "ga",
@@ -32,46 +48,46 @@ return {
     build = function() vim.fn["mkdp#util#install"]() end,
   },
   {
-    ft="markdown",
+    ft = "markdown",
     "jghauser/follow-md-links.nvim",
   },
   {
     "NeogitOrg/neogit",
-    cmd="Neogit",
-    opts={
+    cmd = "Neogit",
+    opts = {
 
-      kind="replace",
-      disable_hints=true,
-      mappings={
-        popup={
-          ["l"]=false,
+      kind = "replace",
+      disable_hints = true,
+      mappings = {
+        popup = {
+          ["l"] = false,
         }
       }
     },
-    keys={
+    keys = {
       {
         "<leader>g",
         function()
           for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.api.nvim_get_option_value('modified', {buf=buf}) then
-              error("UNSAVED CHANGES in "+vim.api.nvim_buf_get_name(buf))
+            if vim.api.nvim_get_option_value('modified', { buf = buf }) then
+              error("UNSAVED CHANGES in " + vim.api.nvim_buf_get_name(buf))
               return
             end
           end
           require("neogit").open()
         end,
-        desc="NeoGit",
+        desc = "NeoGit",
       }
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim"
     },
-    config=true,
+    config = true,
   },
   {
     "ap/vim-css-color",
-    event="VeryLazy",
+    event = "VeryLazy",
   },
   {
     "Apeiros-46B/qalc.nvim",
@@ -95,7 +111,7 @@ return {
   -- },
   {
     "lukas-reineke/indent-blankline.nvim",
-    lazy=false,
+    lazy = false,
     opts = {
       space_char_blankline = " ",
       show_current_context = true,
@@ -104,20 +120,33 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    lazy =false,
-    opts={
-      options={
-        theme="auto",
+    lazy = false,
+    opts = {
+      options = {
+        theme = "auto",
         component_separators = '|',
         section_separators = { left = '', right = '' },
-        globalstatus=true,
+        globalstatus = true,
       },
-      sections={
-        lualine_b = { 'filename', 'branch' },
+      sections = {
+        lualine_b = { 'branch' },
+        lualine_c = {
+          {
+            "filename"
+          },
+          function()
+            return require("lsp-status").status_progress()
+          end,
+        },
         lualine_x = {
           {
+            "diagnostics"
+          }
+        },
+        lualine_z = {
+          {
             "encoding",
-            fmt=function (str)
+            fmt = function(str)
               return string.upper(str)
             end
           },
@@ -125,12 +154,15 @@ return {
             'fileformat',
             symbols = {
               unix = 'LF ', -- e712
-              dos = 'CRLF ',  -- e70f
-              mac = 'CR ',  -- e711
+              dos = 'CRLF ', -- e70f
+              mac = 'CR ', -- e711
             }
           },
         }
+
       },
+    },
+    dependencies = {
     }
   },
   {
@@ -150,7 +182,7 @@ return {
   },
   {
     "folke/which-key.nvim",
-    event="VeryLazy",
+    event = "VeryLazy",
     -- keys = {
     --   {
     --     "<leader>wK",
@@ -174,12 +206,12 @@ return {
   {
     "numToStr/Comment.nvim",
     keys = {
-      { "gcc", mode = "n", desc = "Comment toggle current line" },
-      { "gc", mode = { "n", "o" }, desc = "Comment toggle linewise" },
-      { "gc", mode = "x", desc = "Comment toggle linewise (visual)" },
-      { "gbc", mode = "n", desc = "Comment toggle current block" },
-      { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
-      { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
+      { "gcc", mode = "n",          desc = "Comment toggle current line" },
+      { "gc",  mode = { "n", "o" }, desc = "Comment toggle linewise" },
+      { "gc",  mode = "x",          desc = "Comment toggle linewise (visual)" },
+      { "gbc", mode = "n",          desc = "Comment toggle current block" },
+      { "gb",  mode = { "n", "o" }, desc = "Comment toggle blockwise" },
+      { "gb",  mode = "x",          desc = "Comment toggle blockwise (visual)" },
     },
     config = function(_, opts)
       require("Comment").setup(opts)
@@ -189,12 +221,12 @@ return {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
-    opts =  {}
+    opts = {}
   },
   {
     "lukas-reineke/indent-blankline.nvim",
     version = "2.20.7",
-    keys={
+    keys = {
       {
         "<leader>cc",
         function()
@@ -208,7 +240,7 @@ return {
             vim.cmd [[normal! _]]
           end
         end,
-        desc="Jump to current context",
+        desc = "Jump to current context",
       }
     },
     opts = {
@@ -294,4 +326,3 @@ return {
 
 
 }
-
