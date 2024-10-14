@@ -27,29 +27,10 @@ return {
     end
   },
   {
-    "junegunn/vim-easy-align",
-    cmd = { "EasyAlign" },
-    lazy = false,
-    -- keys={
-    --   {
-    --     "ga",
-    --     mode={"n", "v"},
-    --     desc= "EasyAlign",
-    --     function()
-    --       vim.cmd "EasyAlign"
-    --     end
-    --   }
-    -- },
-  },
-  {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
-  },
-  {
-    ft = "markdown",
-    "jghauser/follow-md-links.nvim",
   },
   {
     "NeogitOrg/neogit",
@@ -70,7 +51,7 @@ return {
         function()
           for _, buf in ipairs(vim.api.nvim_list_bufs()) do
             if vim.api.nvim_get_option_value('modified', { buf = buf }) then
-              error("UNSAVED CHANGES in " + vim.api.nvim_buf_get_name(buf))
+              error("UNSAVED CHANGES in " .. vim.api.nvim_buf_get_name(buf))
               return
             end
           end
@@ -84,10 +65,6 @@ return {
       "nvim-telescope/telescope.nvim"
     },
     config = true,
-  },
-  {
-    "ap/vim-css-color",
-    event = "VeryLazy",
   },
   {
     "Apeiros-46B/qalc.nvim",
@@ -302,24 +279,21 @@ return {
 
   {
     "NvChad/nvim-colorizer.lua",
-    init = function()
-      --require("core.utils").lazy_load "nvim-colorizer.lua"
+    cmd = { "ColorizerAttachToBuffer" },
+    ft = { "css", "html", "javascript", "toml", "sh" },
+    opts = {
+      user_default_options = { RRGGBBAA = true },
+    },
+    config = function(lazy, opts)
+      opts.filetypes = lazy.ft
+      require('colorizer').setup(opts)
     end,
-    config = function()
-      require("colorizer").setup({})
 
-      -- execute colorizer as soon as possible
-      vim.defer_fn(function()
-        require("colorizer").attach_to_buffer(0)
-      end, 0)
-    end,
   },
 
   {
     "nvim-tree/nvim-web-devicons",
-    config = function()
-      --dofile(vim.g.base46_cache .. "devicons")
-      --local opts = { override = require "nvchad.icons.devicons" }
+    config = function(opts)
       require("nvim-web-devicons").setup(opts)
     end,
   },
