@@ -1,9 +1,9 @@
 return {
   {
     'saecki/crates.nvim',
-    ft = {"toml"},
+    ft = { "toml" },
     event = { "BufRead Cargo.toml" },
-    opts={
+    opts = {
 
       lsp = {
         enabled = true,
@@ -11,20 +11,20 @@ return {
           require("mappings").load({
             {
               "<leader>cu",
-              function ()
+              function()
                 require('crates').upgrade_all_crates()
               end,
               desc = "Update crates"
             },
             {
               "<leader>cd",
-              function ()
+              function()
                 require("crates").show_dependencies_popup()
               end,
             },
             {
               "<leader>cv",
-              function ()
+              function()
                 require("crates").show_versions_popup()
               end,
             }
@@ -39,28 +39,28 @@ return {
     config = function(_, opts)
       require("crates").setup(opts)
     end,
-    dependencies={
+    dependencies = {
       "neovim/nvim-lspconfig"
     }
   },
   {
     "rust-lang/rust.vim",
     ft = "rust",
-    init = function ()
+    init = function()
       vim.g.rustfmt_autosave = 1
     end
   },
   {
     'mrcjkb/rustaceanvim',
     version = '^4', -- Recommended
-    lazy=false,
-    config=function ()
+    lazy = false,
+    config = function()
       vim.g.rustaceanvim = {
         -- Plugin configuration
         tools = {
-          hover_actions={
-            replace_builtin_hover=true,
-            border={ "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+          hover_actions = {
+            replace_builtin_hover = true,
+            border = "rounded",
           }
         },
         -- LSP configuration
@@ -68,49 +68,77 @@ return {
           on_attach = function(client, bufnr)
             require("mappings").load({
               {
+                "<leader>e",
+                function()
+                  vim.cmd.RustLsp("renderDiagnostic", "current")
+                end,
+                desc = "Rust diagnostics",
+              },
+              {
+                "<leader>ca",
+                function()
+                  vim.cmd.RustLsp('codeAction')
+                end,
+                desc = "Rust code action",
+              },
+              {
+                "<leader>rd",
+                function()
+                  vim.cmd.RustLsp("openDocs")
+                end,
+                "Open rust docs"
+              },
+              {
                 "<leader>rc",
-                function ()
+                function()
                   vim.cmd.RustLsp('openCargo')
                 end,
-                desc="Rust open Cargo.toml"
+                desc = "Rust open Cargo.toml"
               },
               {
                 "<leader>rx",
-                function ()
+                function()
                   vim.cmd.RustLsp('expandMacro')
                 end,
-                desc="Rust expand macros"
+                desc = "Rust expand macros"
+              },
+              {
+                "<leader>rrm",
+                function()
+                  vim.cmd.RustLsp("rebuildProcMacros")
+                end,
+                desc = "Rust rebuild macros",
               },
               {
                 "K",
-                function ()
+                function()
                   vim.cmd.RustLsp { 'hover', 'actions' }
                 end,
-                desc="Rust hover"
+                desc = "Rust hover"
 
               },
               {
                 "<leader>j",
-                function ()
-                  vim.cmd.RustLsp { 'moveItem',  'down' }
+                function()
+                  vim.cmd.RustLsp { 'moveItem', 'down' }
                 end,
-                desc="Rust move item up"
-              }
+                desc = "Rust move item up"
+              },
             })
             -- you can also put keymaps in here
           end,
           settings = {
             -- rust-analyzer language server configuration
             ['rust-analyzer'] = {
-              diagnostics={
-                enable=false,
+              diagnostics = {
+                enable = false,
               },
               cargo = {
-                allFeatures=true,
+                allFeatures = true,
               },
               inlayHints = {
-                typeHints={
-                  enable=true,
+                typeHints = {
+                  enable = true,
                 }
               }
             }
@@ -120,9 +148,8 @@ return {
         dap = {
         },
       }
-
     end,
-    dependencies={
+    dependencies = {
       "neovim/nvim-lspconfig"
     }
   }

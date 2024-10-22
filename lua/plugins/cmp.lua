@@ -6,19 +6,6 @@ return {
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
-      local function border(hl_name)
-        return {
-          { "╭", hl_name },
-          { "─", hl_name },
-          { "╮", hl_name },
-          { "│", hl_name },
-          { "╯", hl_name },
-          { "─", hl_name },
-          { "╰", hl_name },
-          { "│", hl_name },
-        }
-      end
-
       return {
         sources = {
           { name = "crates" },
@@ -46,11 +33,9 @@ return {
             --side_padding = 1,
             --winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
             scrollbar = false,
-            -- border = border("CmpBorder"),
           },
           documentation = {
-            border = border "CmpDocBorder",
-            -- winhighlight = "Normal:CmpDoc",
+            --border = cmp.config.window.bordered()
           },
         },
         snippet = {
@@ -86,10 +71,18 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.close(),
-          ["<CR>"] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-          },
+          ["<CR>"] = cmp.mapping(function(fallback)
+            if luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            elseif cmp.visible() then
+              cmp.confirm {
+                behavior = cmp.ConfirmBehavior.Insert,
+                select = true
+              }
+            else
+              fallback()
+            end
+          end),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
