@@ -32,6 +32,9 @@ local servers = {
       },
     },
   },
+  clangd = {
+
+  }
 }
 
 local capabilities = require("lsp-status").capabilities
