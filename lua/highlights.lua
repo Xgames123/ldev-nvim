@@ -31,3 +31,9 @@ highlight(highlights)
 if transparent_bg then
   highlight(background_remove_highlights)
 end
+
+return {
+  remove_bg = function()
+    highlight(background_remove_highlights)
+  end
+}

@@ -36,7 +36,7 @@ opt.backup = false
 opt.whichwrap:append "<>[]hl"
 
 opt.incsearch = true
-opt.hlsearch = false
+opt.hlsearch = true
 opt.scrolloff = 8
 
 opt.list = true
