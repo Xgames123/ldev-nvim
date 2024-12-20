@@ -2,10 +2,17 @@ return {
   "nvim-tree/nvim-tree.lua",
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
   keys = {
-      {"<C-n>", "<cmd> NvimTreeToggle <CR> ", desc="Toggle nvimtree"},
-      {'R', "<cmd> lua require('nvim-tree.api').tree.change_root_to_node() <CR>", desc="Change root to selected node"},
+    { "<C-n>", "<cmd> NvimTreeToggle <CR> ", desc = "Toggle nvimtree" },
   },
   opts = {
+    on_attach = function(bufnr)
+      local api = require("nvim-tree.api")
+      api.config.mappings.default_on_attach(bufnr)
+      require("mappings").load({
+        { "R",  api.tree.change_root_to_node, desc = "Change root to selected node" },
+        { "gx", api.node.run.system,          desc = "Open file in system app" }
+      }, bufnr)
+    end,
     filters = {
       dotfiles = false,
       exclude = { vim.fn.stdpath "config" .. "/lua/custom" },
