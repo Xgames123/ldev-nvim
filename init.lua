@@ -66,9 +66,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   command = [[%s/\s\+$//e]],
 })
 
-vim.api.nvim_create_user_command("TableFormat", ":'<,'>! tr -s ' ' | column -t -s '|' -o '|'",
-  { nargs = 0, range = true })
-
+require("table_format")
 require("mappings").load_global()
 require("configs.lazy")
 
