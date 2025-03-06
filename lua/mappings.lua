@@ -123,6 +123,7 @@ M.lsp = {
     "<leader>rr",
     function()
       vim.lsp.buf.rename()
+      vim.cmd(":wall");
     end,
     desc = "LSP rename",
   },

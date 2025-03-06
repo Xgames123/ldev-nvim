@@ -66,6 +66,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   command = [[%s/\s\+$//e]],
 })
 
+require("gpg_edit")
 require("table_format")
 require("mappings").load_global()
 require("configs.lazy")

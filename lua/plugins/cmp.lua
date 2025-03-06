@@ -12,20 +12,32 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "nvim_lua" },
-          { name = "buffer" },
+
+          { name = "buffer",  keyword_length = 4 },
+          { name = "path" },
           {
             name = "spell",
-            option = {
-              keep_all_entries = false,
-              enable_in_context = function()
-                return true
-              end,
-            }
+            group_index = 2,
+            keep_all_entries = true,
+            enable_in_context = function()
+              return require('cmp.config.context').in_treesitter_capture('spell')
+            end
           },
-          { name = "path" },
         },
-        completion = {
-          completeopt = "menu,menuone,noselect",
+        preselect = cmp.PreselectMode.None,
+        sorting = {
+          comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            --cmp.config.compare.scopes,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            --cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          }
         },
 
         window = {
@@ -86,8 +98,6 @@ return {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
             else
               fallback()
             end
@@ -98,8 +108,6 @@ return {
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
             else
               fallback()
             end

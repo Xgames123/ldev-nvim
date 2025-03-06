@@ -4,7 +4,11 @@ return {
     ft = { "toml" },
     event = { "BufRead Cargo.toml" },
     opts = {
-
+      completion = {
+        cmp = {
+          enabled = true
+        },
+      },
       lsp = {
         enabled = true,
         on_attach = function(client, bufnr)
