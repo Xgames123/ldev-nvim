@@ -126,13 +126,16 @@ return {
             "diagnostics"
           }
         },
-        lualine_z = {
-          {
-            "encoding",
-            fmt = function(str)
-              return string.upper(str)
+        lualine_y = {
+          function()
+            local git_blame = require('gitblame')
+            if git_blame and git_blame.is_blame_text_available() then
+              return git_blame.get_current_blame_text()
             end
-          },
+            return ""
+          end,
+        },
+        lualine_z = {
           {
             'fileformat',
             symbols = {
@@ -301,6 +304,17 @@ return {
     "nvim-tree/nvim-web-devicons",
     config = function(opts)
       require("nvim-web-devicons").setup(opts)
+    end,
+  },
+  {
+    "f-person/git-blame.nvim",
+    event = "VeryLazy",
+    config = function()
+      vim.g.gitblame_display_virtual_text = 0
+      require("gitblame").setup({
+        enabled = true,
+        message_template = "<author>",
+      })
     end,
   },
 

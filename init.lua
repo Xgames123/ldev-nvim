@@ -8,7 +8,7 @@ vim.o.timeoutlen = 500
 vim.opt.spell = true
 vim.opt.spellcapcheck = ""
 vim.opt.spelloptions = { "camel" }
-vim.opt.spelllang = { "en_us", "programming" }
+vim.opt.spelllang = { "en_us", "programming", "nl" }
 
 --numbers
 opt.number = true
