@@ -61,11 +61,6 @@ vim.api.nvim_create_user_command('Config', function(data)
   end
 end, { nargs = "*" })
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  pattern = { "*" },
-  command = [[%s/\s\+$//e]],
-})
-
 require("gpg_edit")
 require("table_format")
 require("mappings").load_global()

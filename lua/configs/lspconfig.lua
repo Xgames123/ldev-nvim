@@ -31,10 +31,10 @@ local servers = {
         },
       },
     },
-  },
-  clangd = {
-
   }
+  -- clangd = {
+  --
+  -- }
 }
 
 local capabilities = require("lsp-status").capabilities

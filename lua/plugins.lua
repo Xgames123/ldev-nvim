@@ -1,24 +1,5 @@
 return {
   {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      {
-        "nvim-lua/lsp-status.nvim",
-        config = function(_, _)
-          local lsp_status = require("lsp-status")
-          lsp_status.register_progress()
-        end
-      },
-      {
-        "filipdutescu/renamer.nvim",
-        branch = "master",
-        config = function(_, _)
-          require("configs.lspconfig")
-        end
-      },
-    }
-  },
-  {
     "akinsho/toggleterm.nvim",
     version = "*",
     cmd = { "ToggleTerm", "ToggleTermToggleAll", "TermExec" },
@@ -31,46 +12,6 @@ return {
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
-  },
-  {
-    "NeogitOrg/neogit",
-    cmd = "Neogit",
-    opts = {
-
-      kind = "replace",
-      disable_hints = true,
-      mappings = {
-        popup = {
-          ["l"] = false,
-        }
-      }
-    },
-    keys = {
-      {
-        "<leader>g",
-        function()
-          local status, treeapi = pcall(require, "nvim-tree.api")
-          if status then
-            if treeapi.tree.is_tree_buf(vim.api.nvim_get_current_buf()) then
-              treeapi.tree.close()
-            end
-          end
-          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.api.nvim_get_option_value('modified', { buf = buf }) then
-              error("UNSAVED CHANGES in " .. vim.api.nvim_buf_get_name(buf))
-              return
-            end
-          end
-          require("neogit").open()
-        end,
-        desc = "NeoGit",
-      }
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    },
-    config = true,
   },
   {
     "Apeiros-46B/qalc.nvim",
@@ -86,11 +27,15 @@ return {
     lazy = false,
     "RRethy/nvim-base16",
   },
+  -- {
   --   "jose-elias-alarez/null-ls.nvim",
-  --   ft="go",
-  --   opts = function ()
-  --     return require("custom.configs.null-ls")
-  --   end
+  --   ft = { "go", "javascript" },
+  --   config = function()
+  --     require("null-ls").setup(require("configs.null-ls"))
+  --   end,
+  --   dependencies = {
+  --     "prettier"
+  --   }
   -- },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -99,56 +44,6 @@ return {
       space_char_blankline = " ",
       show_current_context = true,
       show_current_context_start = true,
-    }
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    lazy = false,
-    opts = {
-      options = {
-        theme = "auto",
-        component_separators = '|',
-        section_separators = { left = '', right = '' },
-        globalstatus = true,
-      },
-      sections = {
-        lualine_b = { 'branch' },
-        lualine_c = {
-          {
-            "filename"
-          },
-          function()
-            return require("lsp-status").status_progress()
-          end,
-        },
-        lualine_x = {
-          {
-            "diagnostics"
-          }
-        },
-        lualine_y = {
-          function()
-            local git_blame = require('gitblame')
-            if git_blame and git_blame.is_blame_text_available() then
-              return git_blame.get_current_blame_text()
-            end
-            return ""
-          end,
-        },
-        lualine_z = {
-          {
-            'fileformat',
-            symbols = {
-              unix = 'LF ', -- e712
-              dos = 'CRLF ', -- e70f
-              mac = 'CR ', -- e711
-            }
-          },
-        }
-
-      },
-    },
-    dependencies = {
     }
   },
   {
