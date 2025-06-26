@@ -18,7 +18,6 @@ return {
           {
             name = "spell",
             group_index = 2,
-            keep_all_entries = true,
             enable_in_context = function()
               return require('cmp.config.context').in_treesitter_capture('spell')
             end

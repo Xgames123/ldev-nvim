@@ -4,7 +4,7 @@ return {
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     opts = {
       ensure_installed = {
-        "lua-language-server" , -- not an option from mason.nvim
+        "lua-language-server", -- not an option from mason.nvim
         "rust-analyzer",
         "gopls",
       },
@@ -12,7 +12,7 @@ return {
       PATH = "skip",
 
       ui = {
-        border="rounded",
+        border = "rounded",
         icons = {
           package_pending = " ",
           package_installed = "󰄳 ",

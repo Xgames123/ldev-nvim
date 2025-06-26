@@ -42,23 +42,13 @@ return {
     },
     config = function(_, opts)
       require("crates").setup(opts)
-    end,
-    dependencies = {
-      "neovim/nvim-lspconfig"
-    }
-  },
-  {
-    "rust-lang/rust.vim",
-    ft = "rust",
-    init = function()
-      vim.g.rustfmt_autosave = 1
     end
   },
   {
     'mrcjkb/rustaceanvim',
-    version = '^4', -- Recommended
+    version = '^6',
     lazy = false,
-    config = function()
+    init = function()
       vim.g.rustaceanvim = {
         -- Plugin configuration
         tools = {
@@ -122,14 +112,20 @@ return {
 
               },
               {
+                "<leader>k",
+                function()
+                  vim.cmd.RustLsp { 'moveItem', 'up' }
+                end,
+                desc = "Rust move item up"
+              },
+              {
                 "<leader>j",
                 function()
                   vim.cmd.RustLsp { 'moveItem', 'down' }
                 end,
-                desc = "Rust move item up"
+                desc = "Rust move item down"
               },
-            })
-            -- you can also put keymaps in here
+            }, bufnr)
           end,
           settings = {
             -- rust-analyzer language server configuration
@@ -152,9 +148,6 @@ return {
         dap = {
         },
       }
-    end,
-    dependencies = {
-      "neovim/nvim-lspconfig"
-    }
+    end
   }
 }

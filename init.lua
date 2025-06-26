@@ -44,9 +44,6 @@ opt.list = true
 vim.lsp.inlay_hint.enable(true);
 
 -- border
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-})
 vim.diagnostic.config({
   float = {
     border = "single"
@@ -69,7 +66,6 @@ require("configs.lazy")
 -- add binaries installed by mason.nvim to path
 local is_windows = jit.os == "Windows"
 vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
-
 
 vim.cmd.colorscheme 'base16-gruvbox-material-dark-soft'
 --vim.cmd.colorscheme 'base16-gruvbox-material-dark-hard'
