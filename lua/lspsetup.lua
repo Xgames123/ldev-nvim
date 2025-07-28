@@ -46,6 +46,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
         desc = "LSP hover",
       },
       {
+        "gt",
+        function()
+          vim.lsp.buf.type_definition()
+        end,
+        desc = "LSP Go to definition"
+      },
+      {
         "gd",
         function()
           vim.lsp.buf.definition()
