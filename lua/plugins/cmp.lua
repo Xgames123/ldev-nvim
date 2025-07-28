@@ -1,19 +1,18 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     opts = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
       return {
-        sources = {
+        sources = cmp.config.sources({
           { name = "crates" },
+          { name = "lazydev", group_index = 0 },
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "nvim_lua" },
 
-          { name = "buffer",  keyword_length = 4 },
           { name = "path" },
           {
             name = "spell",
@@ -22,46 +21,30 @@ return {
               return require('cmp.config.context').in_treesitter_capture('spell')
             end
           },
-        },
-        preselect = cmp.PreselectMode.None,
-        sorting = {
-          comparators = {
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            --cmp.config.compare.scopes,
-            cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            cmp.config.compare.locality,
-            cmp.config.compare.kind,
-            --cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
-          }
-        },
+        }, {
+          { name = "buffer", keyword_length = 3 },
+        }),
 
-        window = {
-          completion = {
-            --side_padding = 1,
-            --winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
-            scrollbar = false,
-          },
-          documentation = {
-            --border = cmp.config.window.bordered()
-          },
-        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
         },
 
+        experimental = {
+          ghost_text = true,
+        },
+
+        window = {
+
+        },
+
         formatting = {
-          -- default fields order i.e completion word + item.kind + item.kind icons
-          fields = { "abbr", "kind", "menu" },
+          fields = { "abbr", "kind" },
           format = require("lspkind").cmp_format({
-            mode = 'text_symbol',  -- show only symbol annotations
-            maxwidth = 50,         -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            mode = 'text_symbol',
+            maxwidth = 50,
+            ellipsis_char = '...',
 
             -- The function below will be called before any actual modifications from lspkind
             -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
@@ -83,13 +66,14 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.close(),
           ["<CR>"] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            elseif cmp.visible() then
-              cmp.confirm {
-                behavior = cmp.ConfirmBehavior.Insert,
-                select = true
-              }
+            if cmp.visible() then
+              if luasnip.expandable() then
+                luasnip.expand()
+              else
+                cmp.confirm({
+                  select = true
+                })
+              end
             else
               fallback()
             end
@@ -97,6 +81,8 @@ return {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
+            elseif luasnip.locally_jumpable(1) then
+              luasnip.jump(1)
             else
               fallback()
             end
@@ -107,6 +93,8 @@ return {
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
             else
               fallback()
             end

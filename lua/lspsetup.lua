@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       {
         "<leader>e",
         function()
-          vim.diagnostic.open_float({ scope = "line" })
+          vim.diagnostic.open_float({ scope = "line", border = "rounded" })
         end,
         desc = "LSP Diagnostics for this line"
       },
@@ -41,16 +41,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
       {
         "K",
         function()
-          vim.lsp.buf.hover()
+          vim.lsp.buf.hover({ border = "rounded" })
         end,
         desc = "LSP hover",
-      },
-      {
-        "gr",
-        function()
-          require("telescope.builtin").lsp_references()
-        end,
-        desc = "LSP Go to references"
       },
       {
         "gd",
@@ -76,6 +69,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     }, bufnr)
   end,
 })
-
+vim.lsp.inlay_hint.enable(true)
 vim.lsp.enable("lua_ls")
-vim.lsp.enable("jsonls")
+--vim.lsp.enable("jsonls")

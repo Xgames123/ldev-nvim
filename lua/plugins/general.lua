@@ -1,11 +1,28 @@
 return {
   {
+    "folke/neoconf.nvim",
+    opts = {},
+  },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  {
     "akinsho/toggleterm.nvim",
     version = "*",
-    cmd = { "ToggleTerm", "ToggleTermToggleAll", "TermExec" },
-    config = function(_, opts)
-      require("toggleterm").setup()
-    end
+    cmd = { "ToggleTerm", "ToggleTermToggleAll", "TermExec", "TermSelect", "TermNew" },
+    opts = {
+      float_opts = {
+        border = "rounded"
+      }
+    }
   },
   {
     "iamcco/markdown-preview.nvim",
@@ -22,10 +39,6 @@ return {
     cmd = "Speedtyper",
     opts = {
     }
-  },
-  {
-    lazy = false,
-    "RRethy/nvim-base16",
   },
   -- {
   --   "jose-elias-alarez/null-ls.nvim",
@@ -48,18 +61,34 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    lazy = false,
     build = ":TSUpdate",
-    opts = {
-      ensure_installed = { "help", "c", "cpp", "css", "html", "rust", "lua", "markdown", "markdown_inline" },
+    branch = "master",
+    config = function(opts)
+      require("nvim-treesitter.configs").setup {
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
 
-      highlight = {
-        enable = true,
-        --use_languagetree = true,
-      },
+        -- Install parsers synchronously (only applied to `ensure_installed`)
+        sync_install = false,
+        auto_install = false,
 
-      indent = { enable = true },
-    },
+        highlight = {
+          enable = true,
+        },
+
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<cr>", -- set to `false` to disable one of the mappings
+            node_incremental = "grn",
+            node_decremental = "grm",
+            scope_incremental = false,
+          },
+        },
+
+        indent = { enable = true },
+      }
+    end,
   },
   {
     "folke/which-key.nvim",

@@ -111,7 +111,10 @@ return {
       "zsh"
     },
     cmd = "Neoformat",
-    config = function()
+    keys = {
+      { "<leader>fm", "<cmd> Neoformat <CR>", desc = "format using NeoFormat" }
+    },
+    init = function()
       vim.g.neoformat_basic_format_trim = 1
       vim.g.neoformat_enabled_rust = {}
     end

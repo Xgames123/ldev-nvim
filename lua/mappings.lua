@@ -62,7 +62,6 @@ M.global_map = {
     -- new buffer
     { "<leader>b", "<cmd> enew <CR>", desc = "New buffer", mode = "n" },
     { "<leader>x", "<cmd> :bdelete <CR>", desc = "Delete buffer", mode = "n" },
-    { "<C-x>", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), desc = "Escape terminal mode" },
   },
 
   spell = {
@@ -105,7 +104,8 @@ M.global_map = {
       "<cmd>ToggleTerm direction=float<CR>",
       mode = { "n", "t" },
       desc = "Toggle a floating terminal",
-    }
+    },
+    { "<Esc>", "<C-\\><C-N>", mode = { "t" }, desc = "Escape terminal mode" },
 
   },
 

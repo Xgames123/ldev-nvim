@@ -4,7 +4,7 @@ return {
     lazy = false,
     opts = {
       options = {
-        theme = "auto",
+        theme = require("gruvbox-material.lualine").theme("soft"),
         component_separators = '|',
         section_separators = { left = '', right = '' },
         globalstatus = true,
