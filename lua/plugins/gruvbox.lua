@@ -9,6 +9,10 @@ return {
     config = function()
       local color = require("gruvbox-material.colors").get(vim.o.background, contrast)
       local hl_custom = {
+
+        ["@module"] = { link = "Orange" },
+        ["@module.builtin"] = { link = "@module" },
+
         ["@operator"] = { link = "Red" },
 
         ["@variable"] = { link = "Fg" },
