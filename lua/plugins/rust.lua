@@ -97,13 +97,6 @@ return {
                 desc = "Rust expand macros"
               },
               {
-                "<leader>rrm",
-                function()
-                  vim.cmd.RustLsp("rebuildProcMacros")
-                end,
-                desc = "Rust rebuild macros",
-              },
-              {
                 "K",
                 function()
                   vim.cmd.RustLsp { 'hover', 'actions' }

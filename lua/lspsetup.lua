@@ -39,6 +39,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
         desc = "LSP code action",
       },
       {
+        "<leader>rr",
+        function()
+          vim.lsp.buf.rename()
+        end,
+        desc = "LSP rename",
+      },
+      {
         "K",
         function()
           vim.lsp.buf.hover({ border = "rounded" })

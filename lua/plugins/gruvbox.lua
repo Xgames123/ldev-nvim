@@ -9,17 +9,26 @@ return {
     config = function()
       local color = require("gruvbox-material.colors").get(vim.o.background, contrast)
       local hl_custom = {
-        ["@operator"] = { link = "Fg" },
-        ["@variable"] = { link = "Orange" },
-        ["@variable.member"] = { link = "Orange" },
-        ["@property"] = { link = "Orange" },
+        ["@operator"] = { link = "Red" },
+
+        ["@variable"] = { link = "Fg" },
+        ["@variable.member"] = { link = "Fg" },
+        ["@property"] = { link = "Fg" },
+
+        ["@constant"] = { link = "Orange" },
 
 
         ["@function"] = { link = "Blue" },
         ["@function.method"] = { link = "Blue" },
-        ["@function.macro"] = { link = "Purple" },
         ["@constructor"] = { link = "@Type" },
 
+
+        ["@function.macro"] = { link = "Purple" },
+        ["@constant.macro"] = { link = "Purple" },
+
+
+        ["@variable.builtin"] = { link = "Red" },
+        ["@constant.builtin"] = { link = "Red" },
         ["@type.builtin"] = { link = "Red" },
 
         -- search
