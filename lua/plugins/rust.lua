@@ -4,10 +4,8 @@ return {
     ft = { "toml" },
     event = { "BufRead Cargo.toml" },
     opts = {
-      completion = {
-        cmp = {
-          enabled = true
-        },
+      neoconf = {
+        enabled = true
       },
       lsp = {
         enabled = true,
@@ -40,9 +38,6 @@ return {
         hover = true,
       },
     },
-    config = function(_, opts)
-      require("crates").setup(opts)
-    end
   },
   {
     'mrcjkb/rustaceanvim',
@@ -69,7 +64,7 @@ return {
                 desc = "Rust diagnostics",
               },
               {
-                "<leader>ca",
+                "ga",
                 function()
                   vim.cmd.RustLsp('codeAction')
                 end,
@@ -105,14 +100,16 @@ return {
 
               },
               {
-                "<leader>k",
+                "K",
+                mode = "v",
                 function()
                   vim.cmd.RustLsp { 'moveItem', 'up' }
                 end,
                 desc = "Rust move item up"
               },
               {
-                "<leader>j",
+                "J",
+                mode = "v",
                 function()
                   vim.cmd.RustLsp { 'moveItem', 'down' }
                 end,

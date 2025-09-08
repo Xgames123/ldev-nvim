@@ -10,30 +10,69 @@ return {
       local color = require("gruvbox-material.colors").get(vim.o.background, contrast)
       local hl_custom = {
 
-        ["@module"] = { link = "Orange" },
+        Module = { link = "Orange" },
+        Builtin = { link = "Red" },
+
+        Identifier = { link = "Fg" },
+        Function = { link = "Blue" },
+
+        String = { link = "Aqua" },
+        Type = { link = "Yellow" },
+
+        Macro = { link = "Purple" },
+        PreProc = { link = "Purple" },
+
+        Keyword = { link = "Red" },
+        Label = { link = "Orange" },
+        Operator = { link = "Red" },
+        Special = { link = "Red" },
+
+        SpecialChar = { link = "Special" },
+        ["@character.special"] = { link = "SpecialChar" },
+
+
+        -- module
+        ["@module"] = { link = "Module" },
         ["@module.builtin"] = { link = "@module" },
 
-        ["@operator"] = { link = "Red" },
+        -- operator
+        ["@operator"] = { link = "Operator" },
 
-        ["@variable"] = { link = "Fg" },
-        ["@variable.member"] = { link = "Fg" },
-        ["@property"] = { link = "Fg" },
-
+        -- vars
+        ["@variable"] = { link = "Identifier" },
+        ["@variable.builtin"] = { link = "Builtin" },
+        ["@variable.member"] = { link = "Identifier" },
+        ["@property"] = { link = "Identifier" },
+        ["@constant.builtin"] = { link = "Builtin" },
         ["@constant"] = { link = "Orange" },
 
 
-        ["@function"] = { link = "Blue" },
-        ["@function.method"] = { link = "Blue" },
+        -- function
+        ["@function"] = { link = "Function" },
+        ["@function.method"] = { link = "Function" },
+        ["@function.builtin"] = { link = "Builtin" },
+        ["@type.member"] = { link = "Function" },
         ["@constructor"] = { link = "@Type" },
 
+        -- types
+        Structure = { link = "Type" },
+        StorageClass = { link = "Type" },
+        Typedef = { link = "Type" },
+        ["@type"] = { link = "Type" },
+        ["@type.builtin"] = { link = "Builtin" },
 
-        ["@function.macro"] = { link = "Purple" },
-        ["@constant.macro"] = { link = "Purple" },
+        -- macro
+        ["@function.macro"] = { link = "Macro" },
+        ["@constant.macro"] = { link = "Macro" },
+        Include = { link = "PreProc" },
+        Define = { link = "PreProc" },
 
+        -- keywords
+        Statement = { link = "Keyword" },
+        Conditional = { link = "Keyword" },
+        Repeat = { link = "Keyword" },
+        Exception = { link = "Keyword" },
 
-        ["@variable.builtin"] = { link = "Red" },
-        ["@constant.builtin"] = { link = "Red" },
-        ["@type.builtin"] = { link = "Red" },
 
         -- search
         IncSearch = { link = "Search" },
@@ -62,6 +101,12 @@ return {
         CmpItemKindKeyword = { link = "Red" },
         CmpItemKindUnit = { link = "CmpItemKindUnit" },
         CmpItemKindSnippet = { link = "Purple" },
+
+
+        -- typescript
+        TypescriptVariable = { link = "Keyword" },
+        TypescriptEnumKeyword = { link = "Keyword" },
+        TypescriptOperator = { link = "Operator" },
       }
 
       require("gruvbox-material").setup({
@@ -73,17 +118,11 @@ return {
           background_color = color.bg0,
         },
         contrast = contrast,
-        customize = function(g, opt)
-          local hl = hl_custom[g]
-          if hl ~= nil then
-            opt.link = hl.link
-            opt.bold = hl.bold or opt.bold
-            opt.fg = hl.fg or opt.fg
-            opt.bg = hl.bg or opt.bg
-          end
-          return opt
-        end
       })
+
+      for key, val in pairs(hl_custom) do
+        vim.api.nvim_set_hl(0, key, val)
+      end
     end
   },
 }

@@ -16,7 +16,6 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-    version = "*",
     cmd = { "ToggleTerm", "ToggleTermToggleAll", "TermExec", "TermSelect", "TermNew" },
     opts = {
       float_opts = {
@@ -65,30 +64,31 @@ return {
     build = ":TSUpdate",
     branch = "master",
     config = function(opts)
-      require("nvim-treesitter.configs").setup {
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
-
-        -- Install parsers synchronously (only applied to `ensure_installed`)
-        sync_install = false,
-        auto_install = false,
-
-        highlight = {
-          enable = true,
-        },
-
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "gnn", -- set to `false` to disable one of the mappings
-            node_incremental = "grn",
-            node_decremental = "grm",
-            scope_incremental = false,
-          },
-        },
-
-        indent = { enable = true },
-      }
+      require("nvim-treesitter.configs").setup(opts)
     end,
+    opts = {
+      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+
+      -- Install parsers synchronously (only applied to `ensure_installed`)
+      sync_install = false,
+      auto_install = false,
+
+      highlight = {
+        enable = true,
+      },
+
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "gnn", -- set to `false` to disable one of the mappings
+          node_incremental = "grn",
+          node_decremental = "grm",
+          scope_incremental = false,
+        },
+      },
+
+      indent = { enable = true },
+    }
   },
   {
     "folke/which-key.nvim",

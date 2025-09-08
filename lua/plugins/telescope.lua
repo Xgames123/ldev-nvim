@@ -3,10 +3,10 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     keys = {
-      { "<leader>fg", require("telescope.builtin").live_grep,  desc = "Grep current working directory" },
-      { "<leader>fa", require("telescope.builtin").find_files, desc = "Find all files" },
+      { "<leader>g",  require("telescope.builtin").live_grep,  desc = "Grep current working directory" },
+      { "<leader>ff", require("telescope.builtin").find_files, desc = "Find files" },
       {
-        "<leader>ff",
+        "<leader>fg",
         function()
           local opts = {}
 
@@ -62,7 +62,7 @@ return {
             preview_cutoff = 120,
           },
           file_sorter = require("telescope.sorters").get_fuzzy_file,
-          file_ignore_patterns = { "node_modules" },
+          file_ignore_patterns = { "node_modules", "Cargo.lock" },
           generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
           path_display = { "truncate" },
           winblend = 0,

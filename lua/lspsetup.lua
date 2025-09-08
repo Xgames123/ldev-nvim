@@ -32,14 +32,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
         desc = "LSP Diagnostics for this line"
       },
       {
-        "<leader>ca",
+        "ga",
         function()
           vim.lsp.buf.code_action()
         end,
         desc = "LSP code action",
       },
       {
-        "<leader>rr",
+        "grr",
         function()
           vim.lsp.buf.rename()
         end,
@@ -55,14 +55,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
       {
         "gt",
         function()
-          vim.lsp.buf.type_definition()
+          require("telescope.builtin").lsp_type_definitions()
         end,
-        desc = "LSP Go to definition"
+        desc = "LSP Go to type definition"
+      },
+      {
+        "gr",
+        function()
+          require("telescope.builtin").lsp_references()
+        end,
+        desc = "LSP Go to references"
       },
       {
         "gd",
         function()
-          vim.lsp.buf.definition()
+          require("telescope.builtin").lsp_definitions()
         end,
         desc = "LSP Go to definition"
       },
@@ -85,4 +92,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 vim.lsp.inlay_hint.enable(true)
 vim.lsp.enable("lua_ls")
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("hls")
 --vim.lsp.enable("jsonls")
