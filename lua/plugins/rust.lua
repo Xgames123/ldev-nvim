@@ -120,6 +120,8 @@ return {
           settings = {
             -- rust-analyzer language server configuration
             ['rust-analyzer'] = {
+              installCargo = false,
+              installRustc = false,
               diagnostics = {
                 enable = false,
               },
@@ -128,6 +130,9 @@ return {
               },
               inlayHints = {
                 typeHints = {
+                  lifetimeElisionHints = {
+                    enable = "always",
+                  },
                   enable = true,
                 }
               }

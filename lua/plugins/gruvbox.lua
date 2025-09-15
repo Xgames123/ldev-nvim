@@ -118,11 +118,13 @@ return {
           background_color = color.bg0,
         },
         contrast = contrast,
+        customize = function(_, o)
+          for key, val in pairs(hl_custom) do
+            vim.api.nvim_set_hl(0, key, val)
+          end
+          return o
+        end
       })
-
-      for key, val in pairs(hl_custom) do
-        vim.api.nvim_set_hl(0, key, val)
-      end
     end
   },
 }
