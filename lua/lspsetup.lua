@@ -11,17 +11,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Create an autocmd that will run *before* we save the buffer.
     --  Run the formatting command for the LSP that has just attached.
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format {
-          async = false,
-          filter = function(c)
-            return c.id == client.id
-          end,
-        }
-      end,
-    })
+
+
+    if client.server_capabilities.documentFormattingProvider then
+      local formatGroup = vim.api.nvim_create_augroup("fmt", { clear = false });
+    end
+
 
     require("mappings").load({
       {

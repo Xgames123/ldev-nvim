@@ -49,6 +49,29 @@ vim.api.nvim_create_user_command('Config', function(data)
   end
 end, { nargs = "*" })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    local bufnr = args.buf
+
+    local clients = vim.lsp.get_clients({ bufnr = bufnr })
+    for _, client in pairs(clients) do
+      if client.server_capabilities.documentFormattingProvider then
+        vim.lsp.buf.format {
+          async = false,
+          filter = function(c)
+            return c.id == client.id
+          end,
+        }
+        return
+      end
+    end
+
+    -- no LSP formatting available: run Neoformat
+    vim.cmd("Neoformat")
+  end,
+})
+
 require("gpg_edit")
 require("table_format")
 require("mappings").load_global()
