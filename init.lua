@@ -49,9 +49,19 @@ vim.api.nvim_create_user_command('Config', function(data)
   end
 end, { nargs = "*" })
 
+vim.api.nvim_create_user_command("WriteNoFormat", function(data)
+  local old = vim.g.noformat
+  vim.g.noformat = true
+  vim.cmd("w")
+  vim.g.noformat = old
+end, { nargs = 0 })
+
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function(args)
+    if vim.g.noformat then
+      return
+    end
     local bufnr = args.buf
 
     local clients = vim.lsp.get_clients({ bufnr = bufnr })
