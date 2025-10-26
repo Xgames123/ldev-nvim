@@ -63,54 +63,49 @@ return {
     lazy = false,
     build = ":TSUpdate",
     branch = "master",
-    config = function(opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
-    opts = {
-      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+    config = function()
+      local opts = {
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
 
-      -- Install parsers synchronously (only applied to `ensure_installed`)
-      sync_install = false,
-      auto_install = false,
+        -- Install parsers synchronously (only applied to `ensure_installed`)
+        sync_install = false,
+        auto_install = false,
 
-      highlight = {
-        enable = true,
-      },
-
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "gnn", -- set to `false` to disable one of the mappings
-          node_incremental = "grn",
-          node_decremental = "grm",
-          scope_incremental = false,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
         },
-      },
 
-      indent = { enable = true },
-    }
+        textobjects = { enable = true },
+
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gnn", -- set to `false` to disable one of the mappings
+            node_incremental = "grn",
+            node_decremental = "grm",
+            scope_incremental = false,
+          },
+        },
+
+        indent = { enable = true },
+      }
+
+      require("nvim-treesitter.configs").setup(opts)
+      require 'nvim-treesitter.install'.prefer_git = true
+      local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+      parser_config.diststar = {
+        install_info = {
+          url = "https://github.com/Xgames123/tree-sitter-diststar.git",
+          branch = "main",
+          files = { "src/parser.c" },
+        },
+      }
+    end,
   },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    -- keys = {
-    --   {
-    --     "<leader>wK",
-    --     function()
-    --       vim.cmd "WhichKey"
-    --     end,
-    --     desc="Which-key all keymaps",
-    --
-    --   },
-    --   {
-    --     "<leader>wk",
-    --     function()
-    --       local input = vim.fn.input "WhichKey: "
-    --       vim.cmd("WhichKey " .. input)
-    --     end,
-    --     desc="Which-key query lookup",
-    --   }
-    -- },
     opts = {}
   },
   {

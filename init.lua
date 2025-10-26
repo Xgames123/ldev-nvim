@@ -82,6 +82,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+vim.filetype.add({
+  filename = { ["DISTSTAR"] = "diststar" }
+})
+
 require("gpg_edit")
 require("table_format")
 require("mappings").load_global()
