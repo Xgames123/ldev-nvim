@@ -5,7 +5,7 @@ local M = {}
 M.global_map = {
   general = {
     { KEY_ESCAPE, "<Esc>", mode = { "v", "i", "c" } },
-    { "grr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>", desc = "replace highlighted word" },
+    { "grr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>", desc = "Replace highlighted word" },
     -- copy paste
     { "<leader>p", "\"_dP", desc = "Replace selected", mode = "v" },
     { "<M-p>", ":pu<CR>", desc = "Paste below cursor", mode = "n" },
@@ -19,6 +19,7 @@ M.global_map = {
     { "J", ":m '>+1<CR>gv=gv", mode = "v" },
     { "K", ":m '<-2<CR>gv=gv", mode = "v" },
 
+    { ".", ":normal .<CR>", mode = { "v" } },
     { "<C-d>", "<C-d>zz" },
     { "<C-u>", "<C-u>zz" },
     { "n", "nzzzv" },
