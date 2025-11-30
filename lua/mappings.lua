@@ -6,6 +6,7 @@ M.global_map = {
   general = {
     { KEY_ESCAPE, "<Esc>", mode = { "v", "i", "c" } },
     { "grr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>", desc = "Replace highlighted word" },
+    { "<Esc>", ":noh <CR>", desc = "Clear highlights", mode = "n" },
     -- copy paste
     { "<leader>p", "\"_dP", desc = "Replace selected", mode = "v" },
     { "<M-p>", ":pu<CR>", desc = "Paste below cursor", mode = "n" },
@@ -37,11 +38,6 @@ M.global_map = {
 
     -- azerty remaps
     { "é", "^", desc = "Go to start of line", mode = { "v", "n" } },
-    { "ù", "%", desc = "Go to matching brace", mode = { "n", "v" } },
-    { "gm", "]m", desc = "Go to method start", mode = "n" },
-
-    { "gM", "]M", desc = "Go to method end", mode = "n" },
-    { "<Esc>", ":noh <CR>", desc = "Clear highlights", mode = "n" },
 
     -- switch between windows
     { "<C-h>", "<C-w>h", desc = "Window left", mode = "n" },

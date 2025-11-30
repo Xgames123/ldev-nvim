@@ -68,6 +68,7 @@ require("openproj").setup()
 require("formatting").setup()
 require("gpg_edit").setup()
 require("table_format").setup()
+require("tree-pairs").setup()
 
 require("mappings").load_global()
 require("lazysetup")
