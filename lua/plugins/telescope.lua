@@ -3,7 +3,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     keys = {
-      { "<leader>g",  require("telescope.builtin").live_grep,  desc = "Grep current working directory" },
+      { "g/",         require("telescope.builtin").live_grep,  desc = "Grep current working directory" },
       { "<leader>ff", require("telescope.builtin").find_files, desc = "Find files" },
       {
         "<leader>fg",

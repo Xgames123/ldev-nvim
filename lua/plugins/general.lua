@@ -1,5 +1,45 @@
 return {
   {
+    'Chaitanyabsprip/fastaction.nvim',
+    ---@type FastActionConfig
+    opts = {},
+  },
+  -- {
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     cmdline = {
+  --       enabled = true,
+  --       view = "cmdline",
+  --     },
+  --     popupmenu = {
+  --       enabled = true,
+  --     },
+  --     lsp = {
+  --       progress = { enabled = true },
+  --       hover = { enabled = true },     -- enables Noice hover UI
+  --       signature = { enabled = true }, -- enables Noice signature help UI
+  --       message = { enabled = true },
+  --       documentation = {
+  --         opts = {
+  --           border = "rounded", -- border for hover windows
+  --         },
+  --       },
+  --       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+  --       override = {
+  --         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+  --         ["vim.lsp.util.stylize_markdown"] = true,
+  --         ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+  --       },
+  --     },
+  --     presets = {
+  --       bottom_search = true,
+  --       lsp_doc_border = true, -- adds border to hover + signature help
+  --     }
+  --   },
+  --   dependencies = { "MunifTanjim/nui.nvim" }
+  -- },
+  {
     "folke/neoconf.nvim",
     opts = {},
   },
@@ -55,7 +95,7 @@ return {
     opts = {
       space_char_blankline = " ",
       show_current_context = true,
-      show_current_context_start = true,
+      show_current_context_start = false,
     }
   },
   {
@@ -127,45 +167,6 @@ return {
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     opts = {}
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    version = "2.20.7",
-    keys = {
-      {
-        "<leader>cc",
-        function()
-          local ok, start = require("indent_blankline.utils").get_current_context(
-            vim.g.indent_blankline_context_patterns,
-            vim.g.indent_blankline_use_treesitter_scope
-          )
-
-          if ok then
-            vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
-            vim.cmd [[normal! _]]
-          end
-        end,
-        desc = "Jump to current context",
-      }
-    },
-    opts = {
-      indentLine_enabled = 1,
-      filetype_exclude = {
-        "help",
-        "terminal",
-        "lazy",
-        "lspinfo",
-        "TelescopePrompt",
-        "TelescopeResults",
-        "mason",
-        "nvdash",
-        "nvcheatsheet",
-        "",
-      },
-    },
-    config = function(opts)
-      require("indent_blankline").setup(opts)
-    end,
   },
   {
     "lewis6991/gitsigns.nvim",

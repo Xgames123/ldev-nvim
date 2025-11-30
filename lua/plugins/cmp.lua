@@ -14,13 +14,6 @@ return {
           { name = "luasnip" },
 
           { name = "path" },
-          {
-            name = "spell",
-            group_index = 2,
-            enable_in_context = function()
-              return require('cmp.config.context').in_treesitter_capture('spell')
-            end
-          },
         }, {
           { name = "buffer", keyword_length = 3 },
         }),

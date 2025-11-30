@@ -10,7 +10,9 @@ return {
         globalstatus = true,
       },
       sections = {
-        lualine_b = { 'branch' },
+        lualine_b = {
+          'branch'
+        },
         lualine_c = {
           {
             "filename"

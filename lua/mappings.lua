@@ -81,14 +81,6 @@ M.global_map = {
         end,
         "Spelling suggestions for word under cursor"
       },
-      ["sg"] = {
-        "zg",
-        "Add word to spell list"
-      },
-      ["sb"] = {
-        "zw",
-        "Mark work as misspelled"
-      }
     },
     i = {
       ["<C-s>"] = {

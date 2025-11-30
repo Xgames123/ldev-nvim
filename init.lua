@@ -28,6 +28,7 @@ opt.smartcase = true
 opt.mouse = "a"
 
 opt.termguicolors = true
+opt.winborder = "rounded"
 opt.timeoutlen = 400
 opt.undofile = true
 opt.backup = false
@@ -40,6 +41,13 @@ opt.scrolloff = 8
 
 opt.list = true
 
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●",
+    spacing = 2,
+  },
+  severity_sort = true,
+})
 
 vim.api.nvim_create_user_command('Config', function(data)
   vim.cmd("execute 'cd' stdpath(\"config\")")
@@ -49,45 +57,18 @@ vim.api.nvim_create_user_command('Config', function(data)
   end
 end, { nargs = "*" })
 
-vim.api.nvim_create_user_command("WriteNoFormat", function(data)
-  local old = vim.g.noformat
-  vim.g.noformat = true
-  vim.cmd("w")
-  vim.g.noformat = old
-end, { nargs = 0 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    if vim.g.noformat then
-      return
-    end
-    local bufnr = args.buf
 
-    local clients = vim.lsp.get_clients({ bufnr = bufnr })
-    for _, client in pairs(clients) do
-      if client.server_capabilities.documentFormattingProvider then
-        vim.lsp.buf.format {
-          async = false,
-          filter = function(c)
-            return c.id == client.id
-          end,
-        }
-        return
-      end
-    end
-
-    -- no LSP formatting available: run Neoformat
-    vim.cmd("Neoformat")
-  end,
-})
 
 vim.filetype.add({
   filename = { ["DISTSTAR"] = "diststar" }
 })
 
-require("gpg_edit")
-require("table_format")
+require("openproj").setup()
+require("formatting").setup()
+require("gpg_edit").setup()
+require("table_format").setup()
+
 require("mappings").load_global()
 require("lazysetup")
 
