@@ -4,17 +4,19 @@ local fn = vim.fn
 local M = {}
 local AUGROUP = api.nvim_create_augroup('tree-pairs', {})
 
+local managed_buffers = {}
+
 -- The modes for which to enable the mapping, along with their fallback
 -- strategies.
 local MODES = {
   n = function()
-    vim.cmd('execute ":normal \\<Plug>(MatchitNormalForward)"')
+    vim.cmd(':normal %<CR>')
   end,
   x = function()
-    vim.cmd('execute ":normal \\<Plug>(MatchitVisualForward)"')
+    vim.cmd(':normal %<CR>')
   end,
   o = function()
-    vim.cmd('execute ":normal \\<Plug>(MatchitOperationForward)"')
+    vim.cmd(':normal %<CR>')
   end,
 }
 
@@ -186,12 +188,19 @@ local function match(buf, fallback)
 end
 
 function M.setup()
-  api.nvim_create_autocmd('FileType', {
+  api.nvim_create_autocmd('BufEnter', {
     group = AUGROUP,
     pattern = '*',
     desc = 'Sets up tree-pairs for a buffer',
     callback = function()
       local buf = api.nvim_get_current_buf()
+      for _, item in pairs(managed_buffers) do
+        if item == buf then
+          return
+        end
+      end
+      table.insert(managed_buffers, buf)
+      print("hello")
 
       if DISABLE_FT[vim.bo[buf].ft] then
         return

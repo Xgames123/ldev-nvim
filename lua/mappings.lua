@@ -35,6 +35,7 @@ M.global_map = {
     { "<C-l>", "<Right>", desc = "Move right", mode = "i" },
     { "<C-j>", "<Down>", desc = "Move down", mode = "i" },
     { "<C-k>", "<Up>", desc = "Move up", mode = "i" },
+    { "<C-BS>", "<C-w>", desc = "Delete word", mode = "i" },
 
     -- azerty remaps
     { "é", "^", desc = "Go to start of line", mode = { "v", "n" } },
