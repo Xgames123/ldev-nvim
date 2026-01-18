@@ -9,15 +9,9 @@ local managed_buffers = {}
 -- The modes for which to enable the mapping, along with their fallback
 -- strategies.
 local MODES = {
-  n = function()
-    vim.cmd(':normal %<CR>')
-  end,
-  x = function()
-    vim.cmd(':normal %<CR>')
-  end,
-  o = function()
-    vim.cmd(':normal %<CR>')
-  end,
+  "n",
+  "x",
+  "o"
 }
 
 -- The node types for which to fall back to using matchit.
@@ -187,37 +181,8 @@ local function match(buf, fallback)
   end
 end
 
-function M.setup()
-  api.nvim_create_autocmd('BufEnter', {
-    group = AUGROUP,
-    pattern = '*',
-    desc = 'Sets up tree-pairs for a buffer',
-    callback = function()
-      local buf = api.nvim_get_current_buf()
-      for _, item in pairs(managed_buffers) do
-        if item == buf then
-          return
-        end
-      end
-      table.insert(managed_buffers, buf)
-      print("hello")
-
-      if DISABLE_FT[vim.bo[buf].ft] then
-        return
-      end
-
-      local opts = {
-        desc = 'Jump to the opposite end of the current Tree-sitter node',
-        buffer = buf,
-      }
-
-      for mode, fallback in pairs(MODES) do
-        vim.keymap.set(mode, 'ù', function()
-          match(buf, fallback)
-        end, opts)
-      end
-    end,
-  })
+function M.jump()
+  match(api.nvim_get_current_buf(), function() vim.cmd(":normal %<CR>") end)
 end
 
 return M

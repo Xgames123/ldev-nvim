@@ -9,7 +9,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     lsp_status.register_progress()
     lsp_status.on_attach(client)
 
-    local fastaction = require("fastaction")
     local telescope = require("telescope.builtin")
     require("mappings").load({
       {
@@ -22,7 +21,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       {
         "ga",
         function()
-          fastaction.code_action()
+          vim.lsp.buf.code_action()
         end,
         desc = "LSP code action",
       },

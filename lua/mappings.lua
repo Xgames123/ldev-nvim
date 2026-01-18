@@ -35,7 +35,7 @@ M.global_map = {
     { "<C-l>", "<Right>", desc = "Move right", mode = "i" },
     { "<C-j>", "<Down>", desc = "Move down", mode = "i" },
     { "<C-k>", "<Up>", desc = "Move up", mode = "i" },
-    { "<C-BS>", "<C-w>", desc = "Delete word", mode = "i" },
+    { "<C-BS>", "<C-w>", desc = "Delete word", mode = { "i", "c" } },
 
     -- azerty remaps
     { "é", "^", desc = "Go to start of line", mode = { "v", "n" } },
@@ -60,6 +60,12 @@ M.global_map = {
     -- new buffer
     { "<leader>b", "<cmd> enew <CR>", desc = "New buffer", mode = "n" },
     { "<leader>x", "<cmd> :bdelete <CR>", desc = "Delete buffer", mode = "n" },
+    {
+      "ù",
+      require("tree-pairs").jump,
+      desc = "Jump to the opposite end of the current Tree-sitter node",
+      mode = { "n", "o", "x" }
+    }
   },
 
   spell = {

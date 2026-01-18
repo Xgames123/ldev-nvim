@@ -1,9 +1,4 @@
 return {
-  {
-    'Chaitanyabsprip/fastaction.nvim',
-    ---@type FastActionConfig
-    opts = {},
-  },
   -- {
   --   "folke/noice.nvim",
   --   event = "VeryLazy",
