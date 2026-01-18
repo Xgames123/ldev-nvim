@@ -59,11 +59,6 @@ end, { nargs = "*" })
 
 
 
-
-vim.filetype.add({
-  filename = { ["DISTSTAR"] = "diststar" }
-})
-
 require("openproj").setup()
 require("formatting").setup()
 require("gpg_edit").setup()

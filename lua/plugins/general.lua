@@ -74,24 +74,13 @@ return {
     opts = {
     }
   },
-  -- {
-  --   "jose-elias-alarez/null-ls.nvim",
-  --   ft = { "go", "javascript" },
-  --   config = function()
-  --     require("null-ls").setup(require("configs.null-ls"))
-  --   end,
-  --   dependencies = {
-  --     "prettier"
-  --   }
-  -- },
   {
     "lukas-reineke/indent-blankline.nvim",
     lazy = false,
     opts = {
-      space_char_blankline = " ",
-      show_current_context = true,
-      show_current_context_start = false,
-    }
+      indent = { char = "│" }
+    },
+    main = "ibl",
   },
   {
     "folke/which-key.nvim",

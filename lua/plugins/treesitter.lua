@@ -26,10 +26,10 @@ return {
 
             -- Go to next function/method start/end
             goto_next = {
-              ["gm"] = { "@function.outer", desc = "Go the the next method" },
+              ["gM"] = { query = "@local.scope", query_group="locals", desc = "Go the the next scope" },
             },
             goto_previous = {
-              ["gM"] = { "@function.outer", desc = "Go to previous method" },
+              ["gm"] = { query = "@local.scope", query_group="locals", desc = "Go to previous scope" },
             },
 
           }
@@ -80,7 +80,7 @@ return {
             init_selection = "gnn", -- set to `false` to disable one of the mappings
             node_incremental = "grn",
             node_decremental = "grm",
-            scope_incremental = false,
+            scope_incremental = "grc"
           },
         },
 
@@ -89,14 +89,6 @@ return {
 
       require("nvim-treesitter.configs").setup(opts)
       require 'nvim-treesitter.install'.prefer_git = true
-      local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-      parser_config.diststar = {
-        install_info = {
-          url = "https://github.com/Xgames123/tree-sitter-diststar.git",
-          branch = "main",
-          files = { "src/parser.c" },
-        },
-      }
     end,
 
     dependencies = {
