@@ -73,6 +73,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 vim.lsp.inlay_hint.enable(true)
 vim.lsp.enable("lua_ls")
+vim.lsp.config("ts_ls", {
+
+})
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("hls")
 vim.lsp.enable("gopls")

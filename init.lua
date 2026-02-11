@@ -57,10 +57,13 @@ vim.api.nvim_create_user_command('Config', function(data)
   end
 end, { nargs = "*" })
 
+vim.api.nvim_create_user_command("ExtTerm", function(data)
+  vim.cmd("call system('hyprctl dispatch exec \"[workspace 10]\" \"foot -D ' .. getcwd() .. '\"')")
+end, {})
+
 
 
 require("openproj").setup()
-require("formatting").setup()
 require("gpg_edit").setup()
 require("table_format").setup()
 
