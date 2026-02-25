@@ -10,7 +10,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     lsp_status.on_attach(client)
 
     local telescope = require("telescope.builtin")
-    local fzf = require("fzf-lua")
     require("mappings").load({
       {
         "<leader>e",
@@ -22,7 +21,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       {
         "ga",
         function()
-          fzf.lsp_code_actions()
+          vim.lsp.buf.code_action()
         end,
         desc = "LSP code action",
       },
@@ -43,28 +42,28 @@ vim.api.nvim_create_autocmd('LspAttach', {
       {
         "gt",
         function()
-          fzf.lsp_typedefs()
+          telescope.lsp_type_definitions()
         end,
         desc = "LSP Go to type definition"
       },
       {
         "gr",
         function()
-          fzf.lsp_references()
+          telescope.lsp_references()
         end,
         desc = "LSP Go to references"
       },
       {
         "gd",
         function()
-          fzf.lsp_definitions()
+          telescope.lsp_definitions({jump_to_single_result = true})
         end,
         desc = "LSP Go to definition"
       },
       {
         "gD",
         function()
-          fzf.lsp_declaration()
+          telescope.lsp_declaration()
         end,
         desc = "LSP Go to declaration"
       },

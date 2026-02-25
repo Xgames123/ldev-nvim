@@ -85,7 +85,6 @@ return {
               ["<C-j>"] = require("telescope.actions").move_selection_next,
               ["<C-k>"] = require("telescope.actions").move_selection_previous,
               ["<S-TAB>"] = require("telescope.actions").move_selection_previous,
-
             }
           },
         },
@@ -93,7 +92,10 @@ return {
         extensions_list = { "themes", "terms" },
       }
     end,
-
+    dependencies= {
+      "nvim-telescope/telescope-ui-select.nvim",
+      opts= {}
+    }
 
   },
 }
