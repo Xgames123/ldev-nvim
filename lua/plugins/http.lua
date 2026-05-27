@@ -9,6 +9,12 @@ return {
       global_keymaps = false,
       global_keymaps_prefix = "<leader>R",
       kulala_keymaps_prefix = "",
+      ui = {
+        ---@type kulala.ui.win_config
+        win_opts = {
+          wo = { foldmethod = "manual" },
+        },
+      },
     },
   },
 }

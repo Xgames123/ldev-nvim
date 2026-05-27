@@ -26,6 +26,7 @@ return {
       },
       { "<leader>fb", require("telescope.builtin").buffers,               desc = "Find buffers" },
       { "<leader>fs", require("telescope.builtin").lsp_workspace_symbols, desc = "Find symbols" },
+      { "gfs", require("telescope.builtin").lsp_document_symbols, desc = "Find symbols" },
       { "<leader>fd", require("telescope.builtin").diagnostics,           desc = "Find diagnostics" },
       { "<leader>r", require("telescope.builtin").resume,           desc = "Resume last telescope search" }
     },

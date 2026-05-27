@@ -84,7 +84,7 @@ end
 local function match(buf, fallback)
   local has_parser, parser = pcall(ts.get_parser, buf)
 
-  if not has_parser then
+  if (not has_parser) or parser == nil then
     return fallback()
   end
 
