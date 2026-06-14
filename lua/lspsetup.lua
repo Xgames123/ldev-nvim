@@ -79,6 +79,7 @@ vim.lsp.enable("hls")
 vim.lsp.enable("gopls")
 vim.lsp.enable('svelte')
 vim.lsp.enable("pylsp")
+vim.lsp.enable("tailwindcss")
 vim.lsp.config("rust_analyzer", {
   settings = {
     ["rust-analyzer"] = {
